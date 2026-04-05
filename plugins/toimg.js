@@ -4,14 +4,7 @@
  * ════════════════════════════════════════════ */
 
 import sharp from 'sharp'
-import { downloadContentFromMessage } from 'baileys'
-
-async function dlBuffer(msg, type) {
-  const stream = await downloadContentFromMessage(msg, type)
-  const chunks = []
-  for await (const chunk of stream) chunks.push(chunk)
-  return Buffer.concat(chunks)
-}
+import { downloadMedia } from '../system/helper/download-media.js'
 
 export default {
   name    : 'toimg',
@@ -25,7 +18,7 @@ export default {
     if (!msg) return m.reply('reply sticker dulu')
 
     await react('⏳')
-    const buf = await dlBuffer(msg, 'sticker')
+    const buf = await downloadMedia(msg, 'sticker')
     const img = await sharp(buf).png().toBuffer()
     await feb.sendMessage(chat, { image: img }, { quoted: m.raw })
     await react('✅')
