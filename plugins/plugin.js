@@ -117,7 +117,7 @@ export default {
   command: ['plugin'],
   category: ['owner'],
   description: 'manajemen plugin',
-  hidden : true,
+  hidden : false,
 
   async run(ctx) {
     const { m, args, feb, other, wesker } = ctx
