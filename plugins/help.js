@@ -18,7 +18,7 @@ import crypto from 'node:crypto'
 import fetch from 'node-fetch'
 
 const DEFAULT_THUMB =
-  'https://cdn.azbry.my.id/uploads/wesker.jpg'
+  'https://api.azbry.com/api/wesker.jpg'
 
 async function getThumbBuffer(url) {
   try {
