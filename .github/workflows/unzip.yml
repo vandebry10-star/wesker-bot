@@ -15,14 +15,14 @@ jobs:
 
       - name: Extract app.zip
         run: |
-          unzip app.zip -d temp
+          unzip wesker-bot.zip -d temp
           cp -r temp/* .
-          rm -rf temp app.zip
+          rm -rf temp wesker-bot.zip
 
       - name: Commit extracted files
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Extract app.zip manually"
+          git commit -m "febry drowning in termiuskuraaa"
           git push
