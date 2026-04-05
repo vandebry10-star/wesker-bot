@@ -184,21 +184,20 @@ export default class PluginManager {
     }
 
     try {
-      await plugin.run(ctx)
-      if (ctx?.react) await ctx.react('✅').catch(() => {})
-      return true
-    } catch (e) {
-      const msg = formatError(e)
-      if (ctx?.react) await ctx.react('❌').catch(() => {})
-      if (ctx?.reply) {
-        await ctx.reply(
-          `lahh error..\n\n` +
-          `⟡ dari plugin : ${plugin.name}\n` +
-          `⟡ error  : ${msg}`
-        ).catch(() => {})
-      }
-      err(`plugin error · ${plugin.name} · ${msg}`)
-      return false
-    }
+  await plugin.run(ctx)
+  return true
+} catch (e) {
+  const msg = formatError(e)
+  if (ctx?.react) await ctx.react('❌').catch(() => {})
+  if (ctx?.reply) {
+    await ctx.reply(
+      `lahh error..\n\n` +
+      `⟡ dari plugin : ${plugin.name}\n` +
+      `⟡ error  : ${msg}`
+    ).catch(() => {})
   }
+  err(`plugin error · ${plugin.name} · ${msg}`)
+  return false
+}
+      }
 }
