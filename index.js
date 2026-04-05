@@ -270,7 +270,7 @@ if (debugOn) {
 
 sep()
 nl()
-
+    }
     if (connection === 'close') {
       const status = lastDisconnect?.error instanceof Boom
         ? lastDisconnect.error.output.statusCode
