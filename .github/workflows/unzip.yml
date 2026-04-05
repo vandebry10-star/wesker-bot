@@ -1,9 +1,7 @@
 name: unzip release
 
 on:
-  push:
-    paths:
-      - '*.zip'
+  workflow_dispatch:
 
 jobs:
   extract:
@@ -29,4 +27,3 @@ jobs:
           git add -A
           git diff --staged --quiet || git commit -m "chore: extract zip"
           git push
-          
