@@ -16,7 +16,7 @@
 
 export default {
   name: 'eval',
-  hidden: true,
+  hidden: false,
   command: ['ev'],
   category: ['owner'],
   description: 'eval anysnc ',
