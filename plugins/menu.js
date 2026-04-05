@@ -28,33 +28,58 @@ export default {
       if (!cmd) continue
       for (const c of cats) {
         if (!map[c]) map[c] = []
-        map[c].push(cmd)
+        map[c].push({ cmd, desc: p.description || '' })
       }
     }
 
     const categories = Object.keys(map).sort()
     const totalCmd = categories.reduce((acc, c) => acc + map[c].length, 0)
 
+    // ── menu all ──
+    if (args[0]?.toLowerCase() === 'all') {
+      const lastCat = categories[categories.length - 1]
+      let text = `halo @${username}, selamat ${greet}\n\n`
+
+      for (const cat of categories) {
+        const cmds = map[cat].sort((a, b) => a.cmd.localeCompare(b.cmd))
+        const isLast = cat === lastCat
+        const prefix = isLast ? '└─' : '├─'
+        const bar    = isLast ? '   ' : '│  '
+        const last   = cmds.length - 1
+
+        text += `${prefix} 🔖 ⌞ ${cat.toUpperCase()} ⌝\n`
+        text += cmds.map(({ cmd }, i) => `${bar}${i === last ? '└─' : '├─'} ${cmd}`).join('\n')
+        text += `\n${isLast ? '' : '│  \n'}`
+      }
+
+      text += `\n> ketik *help* untuk detail semua command`
+
+      return await feb.sendMessage(m.chat, { text, mentions: [user] }, { quoted: m.raw })
+    }
+
     // ── menu <kategori> ──
-    if (args[0] && args[0].toLowerCase() !== 'all') {
+    if (args[0]) {
       const target = args[0].toLowerCase()
 
       if (!map[target]) {
         const text =
           `kategori *${target}* tidak ditemukan.\n\n` +
           categories.map(c => `🔖 ⌞ ${c} ⌝`).join('\n') +
-          `\n\nketik *menu <kategori>* untuk membuka`
+          `\n\nketik *menu* untuk untuk melihat kategori menu`
 
         return await feb.sendMessage(m.chat, { text, mentions: [user] }, { quoted: m.raw })
       }
 
-      const cmds = map[target].sort()
-      const last = cmds.length - 1
+      const cmds = map[target].sort((a, b) => a.cmd.localeCompare(b.cmd))
+      const last  = cmds.length - 1
 
       const text =
         `*🔖  ${target.toUpperCase()}*\n` +
-        cmds.map((c, i) => i === last ? `└─ ${c}` : `├─ ${c}`).join('\n') +
-        `\n\n> ketik *menu <perintah>* untuk detail`
+        cmds.map(({ cmd, desc }, i) => {
+          const tree = i === last ? '└─' : '├─'
+          return desc ? `${tree} ${cmd}  —  ${desc}` : `${tree} ${cmd}`
+        }).join('\n') +
+        `\n\n> ketik *menu all* untuk melihat semua menu`
 
       return await feb.sendMessage(m.chat, { text, mentions: [user] }, { quoted: m.raw })
     }
@@ -63,8 +88,8 @@ export default {
     const text =
       `halo @${username}, selamat ${greet}\n\n` +
       categories.map(c => `🔖 ⌞ ${c} ⌝`).join('\n') +
-      `\n\n> ketik *menu <kategori>* untuk melihat list perkategori\n` +
-      `> atau *allmenu* untuk semua list`
+      `\n\n> ketik *menu <kategori>* untuk melihat list\n` +
+      `> atau *menu all* untuk semua list`
 
     await feb.sendMessage(m.chat, {
       text,
@@ -72,7 +97,7 @@ export default {
       contextInfo: {
         externalAdReply: {
           title: 'wesker-bot',
-          body: 'dikembangkan oleh febry wesker',
+          body: 'dikembangkan oleh febry wesker (feb.azbry.com)',
           thumbnailUrl: 'https://api.azbry.com/api/wesker.jpg',
           sourceUrl: 'https://github.com/vandebry10-star/wesker-bot',
           mediaType: 1,
