@@ -38,7 +38,7 @@ export default {
     // ── menu all ──
     if (args[0]?.toLowerCase() === 'all') {
       const lastCat = categories[categories.length - 1]
-      let text = `halo @${username}, selamat ${greet}\n\n`
+      let text = ``
 
       for (const cat of categories) {
         const cmds = map[cat].sort((a, b) => a.cmd.localeCompare(b.cmd))
