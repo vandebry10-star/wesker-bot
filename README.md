@@ -1,9 +1,4 @@
-# Wesker-MD
-
-WhatsApp bot base yang dibangun di atas [Baileys](https://github.com/WhiskeySockets/Baileys). Proyek ini bukan bot siap pakai, tapi framework yang bisa kamu jadikan fondasi bot kamu sendiri.
-
-Dibangun dan dikelola dari mobile (Poco X6 Pro) via SSH ke VPS. Semua fitur yang ada di sini sudah production-tested.
-
+# Wesker-bot
 ---
 
 ## Requirements
@@ -35,7 +30,7 @@ Bot ini default private, hanya bisa diakses oleh nomor yang mendapatkan role. Gu
 wesker-bot/
 ├── index.js              entry point utama
 ├── launcher.js           process wrapper dengan auto-restart
-├── plugins/              tempat semua plugin (ada example plugin)
+├── plugins/              tempat semua plugin
 └── system/
     ├── handler/          message handler & presence
     ├── helper/           utility functions
