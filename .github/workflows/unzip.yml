@@ -1,48 +1,28 @@
-name: unzip release
+name: Extract wesker-bot.zip (manual)
 
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  extract:
+  unzip:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v4
 
-      - name: unzip
+      - name: List files (debug)
+        run: ls -lah
+
+      - name: Extract app.zip
         run: |
-          if [ ! -f "wesker-bot.zip" ]; then
-            echo "wesker-bot.zip not found"
-            exit 1
-          fi
+          unzip app.zip -d temp
+          cp -r temp/* .
+          rm -rf temp app.zip
 
-          # cek struktur zip
-          echo "zip contents:"
-          unzip -l wesker-bot.zip | head -20
-
-          # extract strip satu level folder prefix jika ada
-          TOP=$(unzip -l wesker-bot.zip | awk 'NR==4{print $4}' | cut -d/ -f1)
-          echo "top level: $TOP"
-
-          unzip -o wesker-bot.zip
-          rm wesker-bot.zip
-
-          # kalau ada subfolder prefix, pindahkan isinya ke root
-          if [ -d "$TOP" ] && [ "$TOP" != "." ] && [ -n "$TOP" ]; then
-            echo "moving $TOP/* to root"
-            cp -r "$TOP"/. .
-            rm -rf "$TOP"
-          fi
-
-      - name: commit
+      - name: Commit extracted files
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --staged --quiet || git commit -m "chore: extract wesker-bot.zip"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Extract app.zip manually"
           git push
