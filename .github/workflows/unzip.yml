@@ -10,15 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Download zip
+        run: |
+          wget -O wesker-bot.zip "http://tmpfiles.org/dl/32135458/upload.zip"
+
       - name: List files
         run: ls -lah
-
-      - name: Check zip
-        run: |
-          if [ ! -f wesker-bot.zip ]; then
-            echo "ZIP NOT FOUND"
-            exit 1
-          fi
 
       - name: Extract zip
         run: |
