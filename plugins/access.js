@@ -44,7 +44,7 @@ export default {
   name: 'access',
   command: ['access'],
   category: ['owner'],
-  hidden: true,
+  hidden: false,
 
   async run({ m, args }) {
 
