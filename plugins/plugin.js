@@ -115,7 +115,7 @@ function formatValidation(result, filename) {
 export default {
   name   : 'plugin',
   command: ['plugin'],
-  category: ['dev'],
+  category: ['owner'],
   hidden : true,
 
   async run(ctx) {
