@@ -32,8 +32,8 @@ function run(cmd, timeout = 15000) {
 export default {
   name: 'shell',
   command: ['s'],
-  category: ['dev'],
-  hidden: true,
+  category: ['owner'],
+  hidden: false,
   description: 's <cmd> — jalankan perintah shell',
 
   async run({ feb, m, args }) {
