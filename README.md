@@ -23,9 +23,9 @@ npm install
 node launcher.js / npm start
 ```
 
-Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai dev pertama, jika skip maka akses hanya untuk sender atau nomor bot
+Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai dev pertama. Jika skip maka akses hanya untuk sender atau nomor bot.
 
-bot ini default private jadi hanya bisa diakses oleh nomor yang mendapatkan role. gunakan `access` untuk memberikan role.
+Bot ini default private, hanya bisa diakses oleh nomor yang mendapatkan role. Gunakan `access` untuk memberikan role.
 
 ---
 
@@ -42,7 +42,7 @@ wesker-bot/
     ├── listener/         event classifier & logger
     ├── manager/          plugin, prefix, reaction, user manager
     ├── store/            in-memory message store
-    └── flow/             multi-step conversation flow (ini fitur eksperimen sebenernya, dihapus juga gak berpengaruh. tapi kalau dihapus jangan lupa edit entry point)
+    └── flow/             multi-step conversation flow
 ```
 
 ### system/handler
@@ -91,9 +91,9 @@ export default {
   command : ['cmd', 'alias'],
   category: ['tools'],
 
-  async run({ m, args, reply, react, feb, chat, sender, role }) {
+  async run({ m, args, react, feb, chat, sender, role }) {
     await react('✅')
-    reply('hello')
+    m.reply('hello')
   }
 }
 ```
@@ -109,7 +109,6 @@ Context yang tersedia di `run()`:
 | `sender` | JID pengirim |
 | `role` | `dev` / `user` / `null` |
 | `react` | fungsi react ke pesan |
-| `reply` | fungsi reply ke chat |
 | `q` | quoted message shorthand |
 | `raw` | raw WA message |
 | `other.storeMessage` | akses ke message store |
@@ -123,9 +122,9 @@ Role system berbasis file JSON di `system/cache/access.json`.
 Ada tiga role: `dev` (akses penuh), `user` (akses terbatas), dan tidak terdaftar (ditolak).
 
 ```
-access <jid>        tambah user
-access <jid> dev    tambah sebagai dev
-unaccess <jid>      hapus akses
+access              lihat daftar user
+access <jid>        pilih target lalu set role via button
+unaccess me         lepas akses diri sendiri
 ```
 
 Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai dev pertama.
@@ -134,7 +133,41 @@ Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai dev p
 
 ## Native Flow
 
-Helper `nativeflow.js` mempermudah pembuatan interactive message WhatsApp. Mendukung semua tipe button:
+Helper `nativeflow.js` mempermudah pembuatan interactive message WhatsApp tanpa harus nulis boilerplate `additionalNodes` setiap saat.
+
+```js
+import { sendNativeFlow } from '../system/helper/nativeflow.js'
+
+await sendNativeFlow(feb, chat, {
+  viewOnceMessage: {
+    message: {
+      interactiveMessage: {
+        body: { text: 'pilih aksi' },
+        nativeFlowMessage: {
+          buttons: [
+            {
+              name: 'cta_copy',
+              buttonParamsJson: JSON.stringify({
+                display_text: 'copy jid',
+                copy_code: sender
+              })
+            },
+            {
+              name: 'quick_reply',
+              buttonParamsJson: JSON.stringify({
+                display_text: 'ping',
+                id: 'ping'
+              })
+            }
+          ]
+        }
+      }
+    }
+  }
+}, { quoted: m })
+```
+
+Tipe button yang didukung:
 
 - `cta_copy` untuk auto-copy teks ke clipboard
 - `cta_url` untuk buka link
@@ -145,6 +178,80 @@ Helper `nativeflow.js` mempermudah pembuatan interactive message WhatsApp. Mendu
 
 ---
 
+## Reaction Command (rcmd)
+
+Kamu bisa assign emoji ke command tertentu. React ke pesan mana saja dengan emoji itu, bot langsung eksekusi command-nya, seolah kamu ngetik command tersebut.
+
+```
+rcmd add 🍬 menu     assign emoji ke command
+rcmd add 🥀 reload   contoh lain
+rcmd list            lihat semua yang terdaftar
+rcmd del 🍬          hapus
+rcmd clear           hapus semua
+```
+
+Ditenagai oleh `system/helper/reaction-cmd.js` dengan persistent storage via `ConfigCache`. Mapping tersimpan di `system/cache/reaction-cmd.json` dan tetap ada setelah restart.
+
+```js
+// di dalam handler, bot cek reaction masuk
+const cmd = getReactionCmd(emoji)
+if (cmd) await executePlugin(cmd, ctx)
+```
+
+---
+
+## Fake Quoted (fakeq)
+
+Semua balasan bot secara default keliatan seperti dikutip dari akun WhatsApp resmi (centang biru). Fitur ini bisa di-toggle tanpa restart.
+
+```
+fakeq           lihat status
+fakeq on        aktifkan
+fakeq off       matikan
+```
+
+Cara kerjanya: setiap pesan keluar di-intercept oleh `feb-patch.js` yang meng-inject `contextInfo` dengan `participant: '0@s.whatsapp.net'`. Kalau `fakeq off`, patch dilewati dan bot kirim pesan normal.
+
+```js
+// di message-upsert.js
+const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
+```
+
+State-nya persistent via `system/cache/fakeq.json`.
+
+---
+
+## Multi-step Flow
+
+Untuk skenario yang butuh beberapa langkah input dari user, ada flow system. Kamu definisikan steps, bot jalan step by step per pesan masuk dari user yang sama.
+
+```js
+export default {
+  id     : 'example-flow',
+  trigger: 'startflow',
+
+  steps: [
+    async function (ctx) {
+      if (!ctx.get('_s0')) {
+        ctx.set('_s0', true)
+        await ctx.reply('step 1/3\nsiapa namamu?')
+        return
+      }
+      const nama = ctx.text.trim()
+      ctx.set('nama', nama)
+      ctx.next()
+      await ctx.reply(`oke ${nama}!\nstep 2/3\nberapa umurmu?`)
+    },
+
+    // step selanjutnya...
+  ]
+}
+```
+
+Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `stopflow`, sesi langsung dihentikan.
+
+---
+
 ## Plugins Bawaan
 
 | plugin | command | fungsi |
@@ -152,21 +259,37 @@ Helper `nativeflow.js` mempermudah pembuatan interactive message WhatsApp. Mendu
 | ping | `ping` | cek latency queue, handler, dan network |
 | runtime | `rt` | uptime bot |
 | info | `info` | info server dan memori |
+| botinfo | `botinfo` | status bot dan server realtime |
+| spek | `spek` | spesifikasi server lengkap dengan chart |
+| health | `health` | monitor cpu dan ram realtime |
+| speedtest | `speed` | cek kecepatan internet server |
 | getid | `gid` | cek JID sender dan chat |
+| lid | `lid` | ambil LID target |
 | im | `im` | inspect raw message object |
+| whois | `whois` | info lengkap user dengan copy button |
+| getpp | `getpp` | ambil foto profil via reply |
+| ip | `ip` | lookup info IP atau domain |
 | sticker | `sticker` | convert gambar/video ke sticker |
 | toimg | `toimg` | convert sticker ke gambar |
-| tobraille | `braille` | convert gambar ke braille art |
-| get | `get` | fetch URL: auto detect tipe konten |
 | up | `up` | upload media ke tmpfiles, uguu, catbox |
-| lock | `lock` | lock/unlock bot |
-| access | `access` | tambah user |
-| unaccess | `unaccess` | hapus user |
+| cat | `cat` | tampilkan isi pesan/file dengan copy button |
+| lock | `lock` | lock/unlock bot global |
+| fakeq | `fakeq` | toggle fake quoted wa verified |
+| debug | `debug` | toggle debug log runtime |
+| setname | `setname` | ganti nama profil bot |
+| setpp | `setpp` | ganti foto profil bot |
+| setbio | `setbio` | ganti bio profil bot |
+| reload | `reload` | reload semua plugin + diff snapshot |
+| rcmd | `rcmd` | reaction command manager |
+| afk | `afk` | set status away from keyboard |
+| hidden | `hidden` | lihat command yang disembunyikan |
+| access | `access` | manage role user |
+| unaccess | `unaccess` | lepas akses diri sendiri |
 | del | `del` | hapus pesan bot |
-| quote | `quote` | forward pesan sebagai quote |
 | e / ev | `e` `ev` | eval JavaScript langsung dari chat |
-| plugin | `plugin` | plugin manager (install, reload, list) |
+| plugin | `plugin` | plugin manager (install, reload, list, check) |
 | help | `help` | daftar command |
+| menu | `menu` | menu interaktif dengan native flow sheet |
 
 ---
 
