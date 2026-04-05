@@ -275,7 +275,8 @@ Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `st
 | e / ev | `e` `ev` | eval JavaScript langsung dari chat |
 | plugin | `plugin` | plugin manager (install, reload, list, check) |
 | help | `help` | daftar command |
-| menu | `menu` | menu interaktif dengan native flow sheet |
+| menu | `menu` | menampilkan list kategori |
+| allmenu | `allmenu` | menampilkan semua list menu yang tersedia |
 
 ---
 
