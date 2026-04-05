@@ -20,8 +20,24 @@ jobs:
             echo "wesker-bot.zip not found"
             exit 1
           fi
+
+          # cek struktur zip
+          echo "zip contents:"
+          unzip -l wesker-bot.zip | head -20
+
+          # extract strip satu level folder prefix jika ada
+          TOP=$(unzip -l wesker-bot.zip | awk 'NR==4{print $4}' | cut -d/ -f1)
+          echo "top level: $TOP"
+
           unzip -o wesker-bot.zip
           rm wesker-bot.zip
+
+          # kalau ada subfolder prefix, pindahkan isinya ke root
+          if [ -d "$TOP" ] && [ "$TOP" != "." ] && [ -n "$TOP" ]; then
+            echo "moving $TOP/* to root"
+            cp -r "$TOP"/. .
+            rm -rf "$TOP"
+          fi
 
       - name: commit
         run: |
