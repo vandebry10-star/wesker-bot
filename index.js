@@ -8,10 +8,6 @@
  * © 2026 febry wesker. all rights reserved.
  * do not resell, redistribute, or claim as
  * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
  * ════════════════════════════════════════════ */
 
 import {
@@ -25,13 +21,12 @@ import {
   generateWAMessageContent
 } from 'baileys'
 
-import { Boom }      from '@hapi/boom'
-import pino          from 'pino'
-import qrcode        from 'qrcode-terminal'
-import readline      from 'readline'
-import fs            from 'fs'
-import path          from 'path'
-import crypto        from 'crypto'
+import { Boom }          from '@hapi/boom'
+import pino              from 'pino'
+import qrcode            from 'qrcode-terminal'
+import fs                from 'fs'
+import path              from 'path'
+import crypto            from 'crypto'
 import { fileURLToPath } from 'url'
 
 import dotenv from 'dotenv'
@@ -45,7 +40,6 @@ import { createPresenceHandler } from './system/handler/presence-update.js'
 import { CoreListener }          from './system/listener/core-listener.js'
 import { BOT_INFO }              from './system/helper/index.js'
 import { loadFlows }             from './system/flow/flow-loader.js'
-import { addUser, getRole }      from './system/helper/access.js'
 
 setDebug(process.env.DEBUG === '1')
 
@@ -57,98 +51,94 @@ const prefixManager = new PrefixManager()
 
 const PAIRING_CODE = 'WESKERMD'
 
+// ── colors ────────────────────────────────────
 const c = {
-  reset: '\x1b[0m',
-  dim  : '\x1b[90m',
-  white: '\x1b[97m',
-  bold : '\x1b[1m',
-  green: '\x1b[32m',
-  red  : '\x1b[31m',
+  reset : '\x1b[0m',
+  dim   : '\x1b[90m',
+  white : '\x1b[97m',
+  bold  : '\x1b[1m',
+  green : '\x1b[32m',
+  cyan  : '\x1b[36m',
+  yellow: '\x1b[33m',
+  red   : '\x1b[31m',
+  blue  : '\x1b[34m',
 }
 
-const sep = () => process.stdout.write(`${c.dim}┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄${c.reset}\n`)
-const log = (msg) => process.stdout.write(`  ${c.dim}⟡${c.reset} ${msg}\n`)
+const W = (...args) => process.stdout.write(args.join(''))
 
-const rl       = readline.createInterface({ input: process.stdin, output: process.stdout })
-const question = q => new Promise(res => rl.question(q, res))
-
-/* ════════════════════════════════════════
- * setup access — panggil sekali saat connected
- * ════════════════════════════════════════ */
-let _accessSetup = false
-
-async function setupAccess(feb) {
-  if (_accessSetup) return
-  _accessSetup = true
-
-  const botJid = feb.user?.id
-  if (!botJid) return
-
-  // bot sendiri selalu owner
-  if (!getRole(botJid)) {
-    addUser(botJid, 'owner')
-    log(`${c.dim}bot registered as owner · ${botJid}${c.reset}`)
-  }
-
-  // cek apakah sudah ada owner lain
-  const { listAccess } = await import('./system/helper/access.js')
-  const db  = listAccess()
-  const devs = Object.entries(db).filter(([, v]) => v === 'owner' && !db[botJid])
-
-  if (devs.length > 0) return // sudah ada owner, skip prompt
-
-  // belum ada owner — minta input
-  console.clear()
+const nl  = ()        => W('\n')
+const sep = () =>
+  W(`${c.dim}  ─────────────────────────────${c.reset}\n`)
+const row = (k, v, col = c.white) =>
+  W(`  ${c.bold}${k.padEnd(12)}${c.reset}${col}${v}${c.reset}\n`)
+const hdr = (title, sub = '') => {
+  nl()
   sep()
-  process.stdout.write(`  ${c.bold}${c.white}wesker-md${c.reset}  ${c.dim}access setup${c.reset}\n`)
+  W(`  ${c.bold}${c.white}${title}${c.reset}`)
+  if (sub) W(`  ${c.dim}${sub}${c.reset}`)
+  W('\n')
   sep()
-  log(`${c.dim}belum ada owner terdaftar${c.reset}`)
-  log(`${c.dim}masukkan JID / LID kamu agar bisa pakai command${c.reset}`)
-  log(`${c.dim}contoh: 6281234567890@s.whatsapp.net${c.reset}`)
-  log(`${c.dim}atau kosongkan jika ingin skip${c.reset}`)
-  sep()
-  process.stdout.write('\n')
+  nl()
+}
 
-  const input = await question(`  ${c.dim}jid/lid > ${c.reset}`)
-  const jid   = input.trim()
-
-  if (jid) {
-    addUser(jid, 'owner')
-    log(`${c.green}${jid} registered as owner${c.reset}`)
-  } else {
-    log(`${c.dim}skip — gunakan command 'access' untuk tambah user nanti${c.reset}`)
-  }
-
-  sep()
-  process.stdout.write('\n')
+function ask(prompt) {
+  return new Promise(resolve => {
+    W(`  ${c.dim}${prompt}${c.reset}  `)
+    process.stdin.resume()
+    process.stdin.setEncoding('utf8')
+    process.stdin.once('data', data => {
+      process.stdin.pause()
+      resolve(data.replace(/\r?\n$/, '').trim())
+    })
+  })
 }
 
 async function handleAuth() {
   const authPath = path.join(__dirname, 'auth', 'creds.json')
+
   if (!fs.existsSync(authPath)) {
     console.clear()
-    sep()
-    process.stdout.write(`  ${c.bold}${c.white}wesker-md${c.reset}  ${c.dim}auth setup${c.reset}\n`)
-    sep()
-    log(`${c.white}1${c.reset}${c.dim} · pairing code${c.reset}`)
-    log(`${c.white}2${c.reset}${c.dim} · qr scan${c.reset}`)
-    log(`${c.white}3${c.reset}${c.dim} · exit${c.reset}`)
-    sep()
-    process.stdout.write('\n')
+    hdr('wesker-md', 'auth setup')
 
-    const choice = await question(`  ${c.dim}choice > ${c.reset}`)
+    W(`  ${c.bold}metode login${c.reset}\n`)
+    W(`  ${c.white}  1${c.reset}  pairing code  ${c.dim}(disarankan, tanpa scan)${c.reset}\n`)
+    W(`  ${c.white}  2${c.reset}  qr scan       ${c.dim}(scan seperti biasa)${c.reset}\n`)
+    W(`  ${c.white}  3${c.reset}  exit\n`)
+
+    nl()
+
+    const choice = await ask('pilih  >')
+    nl()
 
     if (choice === '1') {
-      const number = await question(`  ${c.dim}number  > ${c.reset}`)
-      return { method: 'pairing', number: number.replace(/\D/g, '') }
+      W(`  ${c.bold}nomor whatsapp${c.reset}\n`)
+      W(`  ${c.dim}  gunakan format 628xxx (tanpa + atau spasi)${c.reset}\n`)
+      nl()
+
+      const number = await ask('nomor  >')
+      nl()
+
+      return {
+        method: 'pairing',
+        number: number.replace(/\D/g, '')
+      }
     }
-    if (choice === '2') return { method: 'qr' }
+
+    if (choice === '2') {
+      nl()
+      W(`  ${c.dim}menunggu qr code...\n${c.reset}`)
+      nl()
+      return { method: 'qr' }
+    }
+
     process.exit(0)
   }
+
   return { method: 'existing' }
 }
 
 async function startWesker() {
+
   const authMethod           = await handleAuth()
   const { state, saveCreds } = await useMultiFileAuthState('./auth')
   const { version }          = await fetchLatestBaileysVersion()
@@ -167,25 +157,43 @@ async function startWesker() {
     getMessage         : async () => undefined
   })
 
+  /* ─ pairing ─ */
   if (authMethod.method === 'pairing' && !state.creds.registered) {
-    try {
-      await new Promise(r => setTimeout(r, 1000))
-      const code    = await feb.requestPairingCode(authMethod.number, PAIRING_CODE)
-      const display = code.match(/.{1,4}/g)?.join('-') ?? code
+  try {
+    await new Promise(r => setTimeout(r, 1200))
 
-      console.clear()
-      sep()
-      process.stdout.write(`  ${c.bold}${c.white}wesker-md${c.reset}  ${c.dim}pairing code${c.reset}\n`)
-      sep()
-      process.stdout.write('\n')
-      process.stdout.write(`  ${c.bold}${c.white}${display}${c.reset}\n`)
-      process.stdout.write('\n')
-      log(`${c.dim}whatsapp → linked devices → link with phone number${c.reset}`)
-      sep()
-      process.stdout.write('\n')
-    } catch (e) {
-      log(`${c.red}gagal minta pairing code: ${e.message}${c.reset}`)
-    }
+    const code    = await feb.requestPairingCode(authMethod.number, PAIRING_CODE)
+    const display = code.match(/.{1,4}/g)?.join('-') ?? code
+
+    console.clear()
+    hdr('wesker-md', 'pairing code')
+
+    nl()
+
+    // pairing code block (fix visibility)
+    W(`  ${c.bold}${c.white}code${c.reset}\n`)
+    W(`  ${c.bold}${c.cyan}  ${display}${c.reset}\n`)
+
+    nl()
+
+    W(`  ${c.bold}instruksi${c.reset}\n`)
+    W(`  ${c.dim}  1. buka whatsapp di hp kamu${c.reset}\n`)
+    W(`  ${c.dim}  2. masuk ke linked devices${c.reset}\n`)
+    W(`  ${c.dim}  3. pilih link with phone number${c.reset}\n`)
+    W(`  ${c.dim}  4. masukkan kode di atas${c.reset}\n`)
+
+    nl()
+
+    W(`  ${c.yellow}  catatan: kode berlaku beberapa menit${c.reset}\n`)
+
+    sep()
+    nl()
+
+  } catch (e) {
+    nl()
+    row('error', e.message, c.red)
+    nl()
+  }
   }
 
   feb.pluginManager = pluginManager
@@ -196,6 +204,7 @@ async function startWesker() {
   feb.coreListener   = coreListener
   coreListener.activate()
 
+  /* ─ sendGroupStatus helper ─ */
   feb.sendGroupStatus = async (jid, content = {}) => {
     const inside        = await generateWAMessageContent(content, { upload: feb.waUploadToServer })
     const messageSecret = crypto.randomBytes(32)
@@ -215,22 +224,52 @@ async function startWesker() {
     })
   }
 
+  /* ─ connection events ─ */
   feb.ev.on('connection.update', async ({ connection, lastDisconnect, qr }) => {
-    if (qr && authMethod.method === 'qr') qrcode.generate(qr, { small: true })
+
+    if (qr && authMethod.method === 'qr')
+      qrcode.generate(qr, { small: true })
 
     if (connection === 'open') {
-      console.clear()
-      sep()
-      process.stdout.write(`  ${c.bold}${c.white}wesker-md${c.reset}\n`)
-      sep()
-      log(`${c.green}connected${c.reset}`)
-      log(`${c.dim}${feb.user?.id || '-'}${c.reset}`)
-      sep()
-      process.stdout.write('\n')
+      const debugOn  = process.env.DEBUG === '1'
+      const now      = new Date().toLocaleString('id-ID', {
+        timeZone    : 'Asia/Jakarta',
+        day         : '2-digit',
+        month       : 'short',
+        year        : 'numeric',
+        hour        : '2-digit',
+        minute      : '2-digit',
+        second      : '2-digit',
+        hour12      : false
+      })
 
-      // setup access setelah connected
-      await setupAccess(feb)
-    }
+      console.clear()
+hdr('wesker-md')
+
+row('status', 'connected', c.green)
+row('session', feb.user?.id || '-', c.white)
+row('waktu', now, c.dim)
+
+nl()
+
+W(`  ${c.bold}akses${c.reset}\n`)
+W(`  ${c.dim}  private mode · hanya user dengan role yang bisa menggunakan bot${c.reset}\n`)
+W(`  ${c.dim}  gunakan command ${c.white}access${c.reset}${c.dim} untuk mengatur user${c.reset}\n`)
+
+nl()
+
+W(`  ${c.bold}logs${c.reset}\n`)
+
+if (debugOn) {
+  W(`  ${c.green}  aktif${c.reset}  ${c.dim}semua event akan tampil di console${c.reset}\n`)
+  W(`  ${c.dim}  ketik ${c.white}debug off${c.reset}${c.dim} untuk mematikan logs${c.reset}\n`)
+} else {
+  W(`  ${c.yellow}  nonaktif${c.reset}  ${c.dim}console tidak menampilkan aktivitas bot${c.reset}\n`)
+  W(`  ${c.dim}  ketik ${c.white}debug on${c.reset}${c.dim} untuk mengaktifkan logs${c.reset}\n`)
+}
+
+sep()
+nl()
 
     if (connection === 'close') {
       const status = lastDisconnect?.error instanceof Boom
@@ -239,11 +278,14 @@ async function startWesker() {
 
       if (status === DisconnectReason.loggedOut) {
         fs.rmSync('./auth', { recursive: true, force: true })
-        log(`${c.red}logged out · auth cleared${c.reset}`)
+        nl()
+        row('auth', 'sesi berakhir · file auth dihapus · restart untuk login ulang', c.red)
+        nl()
         process.exit(0)
       }
 
-      log(`${c.dim}disconnected · reconnecting...${c.reset}`)
+      row('status', 'koneksi terputus · mencoba reconnect dalam 3 detik...', c.yellow)
+      nl()
       setTimeout(startWesker, 3000)
     }
   })
