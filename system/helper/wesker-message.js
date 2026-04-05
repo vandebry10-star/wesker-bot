@@ -16,12 +16,12 @@
 
 import crypto from 'node:crypto'
 
-function normalizeMentions(mentions = []) {
+export function normalizeMentions(mentions = []) {
   if (!Array.isArray(mentions)) mentions = [mentions]
   return mentions.filter(Boolean)
 }
 
-function buildContextInfo(mentions = []) {
+export function buildContextInfo(mentions = []) {
   return {
     participant: '0@s.whatsapp.net',
     quotedMessage: {
