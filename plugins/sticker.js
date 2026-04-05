@@ -162,6 +162,7 @@ export default {
   name:"sticker",
   command:["sticker","stiker","stk"],
   category:["tools"],
+  description: 'ya buat bikin sticker-_-',
 
   async run({feb,m,args,react}){
 
