@@ -57,7 +57,6 @@ Kumpulan utility yang dipakai oleh handler dan plugin. Yang paling sering dipaka
 - `quoted-text.js` untuk kirim dan edit pesan dengan custom quoted context
 - `wesker-message.js` sebagai universal sender yang bisa handle text, image, document, dan lainnya dalam satu fungsi
 - `access.js` untuk role-based access control berbasis JSON
-- `uploader.js` multi-endpoint file uploader dengan fallback chain otomatis
 
 ### system/listener
 
