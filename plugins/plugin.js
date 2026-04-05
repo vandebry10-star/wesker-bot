@@ -116,7 +116,7 @@ export default {
   name   : 'plugin',
   command: ['plugin'],
   category: ['owner'],
-  hidden : false,
+  hidden : true,
 
   async run(ctx) {
     const { m, args, feb, other, wesker } = ctx
