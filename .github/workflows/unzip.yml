@@ -24,11 +24,6 @@ jobs:
           unzip -o wesker-bot.zip
           ls -lah
 
-      - name: Move files
-        run: |
-          cp -r wesker-bot/* .
-          rm -rf wesker-bot wesker-bot.zip
-
       - name: Commit
         run: |
           git config user.name "github-actions"
