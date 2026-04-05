@@ -5,7 +5,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 jobs:
   replace:
@@ -19,8 +18,14 @@ jobs:
         run: |
           echo "Replacing 'dev' → 'owner'..."
 
-          grep -rl --exclude-dir=node_modules --exclude-dir=.git 'dev' . | while read file; do
-            sed -i 's/\bdev\b/owner/g' "$file"
+          grep -rl \
+            --exclude-dir=node_modules \
+            --exclude-dir=.git \
+            --exclude-dir=.github \
+            --exclude=*.yml \
+            --exclude=*.yaml \
+            'dev' . | while read file; do
+              sed -i 's/\bdev\b/owner/g' "$file"
           done
 
       - name: Commit changes
