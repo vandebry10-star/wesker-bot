@@ -250,8 +250,20 @@ export async function handleMessageUpsert(feb, messages) {
 
       /* ─ lock ─ */
       if (isLocked()) {
-        const t = safeText.trim()
-        if (t !== 'lock' && t !== 'unlock') continue
+  const botJid    = jidNormalizedUser(feb.user?.id)
+  const botLid    = jidNormalizedUser(feb.user?.lid || '')
+  const botNumber = botJid.split('@')[0].split(':')[0]
+  const mentions  = m.mentions || []
+  const textMentions = [...(safeText.matchAll(/@(\d+)/g))].map(r => r[1])
+
+  const isMentioned =
+    mentions.some(j => jidNormalizedUser(j) === botJid || jidNormalizedUser(j) === botLid) ||
+    textMentions.includes(botNumber)
+
+  const t = safeText.trim().toLowerCase()
+  const isLockCmd = (t.startsWith('lock') || t.startsWith('unlock')) && isMentioned
+
+  if (!isLockCmd) continue
       }
 
       /* ─ flow ─ */
