@@ -1,4 +1,4 @@
-name: Extract wesker-bot.zip
+name: Extract wesker-bot
 
 on:
   workflow_dispatch:
@@ -12,15 +12,17 @@ jobs:
 
       - name: Download zip
         run: |
-          wget -O wesker-bot.zip "http://tmpfiles.org/dl/32135458/upload.zip"
+          curl -L "https://files.catbox.moe/j0x73e.zip" -o wesker-bot.zip
 
-      - name: List files
-        run: ls -lah
-
-      - name: Extract zip
+      - name: Debug zip
         run: |
-          unzip wesker-bot.zip -d temp
-          cp -r temp/* .
+          file wesker-bot.zip
+          unzip -l wesker-bot.zip
+
+      - name: Extract
+        run: |
+          unzip -o wesker-bot.zip -d temp
+          cp -r temp/wesker-bot/* .
           rm -rf temp wesker-bot.zip
 
       - name: Commit
