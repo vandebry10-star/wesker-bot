@@ -23,7 +23,7 @@ npm install
 node launcher.js / npm start
 ```
 
-Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai dev pertama. Jika skip maka akses hanya untuk sender atau nomor bot.
+Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai owner pertama. Jika skip maka akses hanya untuk sender atau nomor bot.
 
 Bot ini default private, hanya bisa diakses oleh nomor yang mendapatkan role. Gunakan `access` untuk memberikan role.
 
@@ -107,7 +107,7 @@ Context yang tersedia di `run()`:
 | `args` | array argumen setelah command |
 | `chat` | JID tujuan |
 | `sender` | JID pengirim |
-| `role` | `dev` / `user` / `null` |
+| `role` | `owner` / `user` / `null` |
 | `react` | fungsi react ke pesan |
 | `q` | quoted message shorthand |
 | `raw` | raw WA message |
@@ -119,7 +119,7 @@ Context yang tersedia di `run()`:
 
 Role system berbasis file JSON di `system/cache/access.json`.
 
-Ada tiga role: `dev` (akses penuh), `user` (akses terbatas), dan tidak terdaftar (ditolak).
+Ada tiga role: `owner` (akses penuh), `user` (akses terbatas), dan tidak terdaftar (ditolak).
 
 ```
 access              lihat daftar user
@@ -127,7 +127,7 @@ access <jid>        pilih target lalu set role via button
 unaccess me         lepas akses diri sendiri
 ```
 
-Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai dev pertama.
+Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai owner pertama.
 
 ---
 

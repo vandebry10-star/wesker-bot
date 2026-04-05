@@ -23,7 +23,7 @@ export default {
   name    : 'eval',
   hidden  : true,
   command : ['e'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'eval our code',
 
   async run({ feb, m, args, other, raw, chat, sender, role }) {

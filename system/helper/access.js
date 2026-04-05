@@ -45,7 +45,7 @@ export function getRole(jid) {
 }
 
 export function addUser(jid, role) {
-  if (!jid || !['dev', 'user'].includes(role)) return
+  if (!jid || !['owner', 'user'].includes(role)) return
   const db = cache.get()
   db[jid] = role
   cache.set(db)

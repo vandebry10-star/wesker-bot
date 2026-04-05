@@ -20,7 +20,7 @@ import { weskerSend } from '../system/helper/wesker-message.js'
 export default {
   name: 'debug',
   command: ['debug'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'toggle debug log runtime',
 
   async run(ctx) {

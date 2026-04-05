@@ -180,7 +180,7 @@ export async function handleMessageUpsert(feb, messages) {
       /* ─ flow ─ */
       if (safeText && chat.endsWith('@g.us')) {
         const flowRole = getRole(sender)
-        const canFlow  = flowRole === 'dev' || flowRole === 'owner'
+        const canFlow  = flowRole === 'owner' || flowRole === 'owner'
 
         if (canFlow) {
           if (hasSession(sender, chat)) {
@@ -220,8 +220,8 @@ export async function handleMessageUpsert(feb, messages) {
       const role = getRole(sender)
       if (!role) continue
 
-      if (plugin.category?.includes('dev') && role !== 'dev') {
-        await m.reply('khusus dev')
+      if (plugin.category?.includes('owner') && role !== 'owner') {
+        await m.reply('khusus owner')
         continue
       }
 

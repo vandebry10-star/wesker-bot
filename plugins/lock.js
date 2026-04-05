@@ -20,7 +20,7 @@ import { weskerSend } from '../system/helper/wesker-message.js'
 export default {
   name: 'lock',
   command: ['lock', 'unlock'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'kunci / buka respon bot global',
 
   async run(ctx) {

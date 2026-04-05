@@ -42,7 +42,7 @@ function formatError(e) {
 
 function checkAccess(plugin, role) {
   if (!role) return false
-  if (plugin.category?.includes('dev') && role !== 'dev') return false
+  if (plugin.category?.includes('owner') && role !== 'owner') return false
   return true
 }
 

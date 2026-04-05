@@ -24,7 +24,7 @@ import {
 export default {
   name: 'rcmd',
   command: ['rcmd'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'reaction command manager',
 
   async run({ m, args }) {

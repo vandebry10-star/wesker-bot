@@ -43,7 +43,7 @@ function getTarget(m, args) {
 export default {
   name: 'access',
   command: ['access'],
-  category: ['dev'],
+  category: ['owner'],
   hidden: true,
 
   async run({ m, args }) {
@@ -75,9 +75,9 @@ export default {
       return m.reply('tag / reply / nomor')
 
     /* ─ DEV ─ */
-    if (action === 'dev') {
-      addUser(target, 'dev')
-      return m.reply(`berhasil set dev\n${target}`)
+    if (action === 'owner') {
+      addUser(target, 'owner')
+      return m.reply(`berhasil set owner\n${target}`)
     }
 
     /* ─ USER ─ */
