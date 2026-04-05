@@ -47,11 +47,11 @@ export default {
       )
     }
 
-    if (role === 'dev') {
+    if (role === 'owner') {
       return weskerSend(
         feb,
         m.chat,
-        '❌ dev tidak bisa unaccess diri sendiri',
+        '❌ owner tidak bisa unaccess diri sendiri',
         { quoted: m }
       )
     }

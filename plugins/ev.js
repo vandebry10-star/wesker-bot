@@ -18,7 +18,7 @@ export default {
   name: 'eval',
   hidden: true,
   command: ['ev'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'eval anysnc ',
 
   async run({ feb, m }) {

@@ -84,25 +84,25 @@ async function setupAccess(feb) {
   const botJid = feb.user?.id
   if (!botJid) return
 
-  // bot sendiri selalu dev
+  // bot sendiri selalu owner
   if (!getRole(botJid)) {
-    addUser(botJid, 'dev')
-    log(`${c.dim}bot registered as dev · ${botJid}${c.reset}`)
+    addUser(botJid, 'owner')
+    log(`${c.dim}bot registered as owner · ${botJid}${c.reset}`)
   }
 
-  // cek apakah sudah ada dev lain
+  // cek apakah sudah ada owner lain
   const { listAccess } = await import('./system/helper/access.js')
   const db  = listAccess()
-  const devs = Object.entries(db).filter(([, v]) => v === 'dev' && !db[botJid])
+  const devs = Object.entries(db).filter(([, v]) => v === 'owner' && !db[botJid])
 
-  if (devs.length > 0) return // sudah ada dev, skip prompt
+  if (devs.length > 0) return // sudah ada owner, skip prompt
 
-  // belum ada dev — minta input
+  // belum ada owner — minta input
   console.clear()
   sep()
   process.stdout.write(`  ${c.bold}${c.white}wesker-md${c.reset}  ${c.dim}access setup${c.reset}\n`)
   sep()
-  log(`${c.dim}belum ada dev terdaftar${c.reset}`)
+  log(`${c.dim}belum ada owner terdaftar${c.reset}`)
   log(`${c.dim}masukkan JID / LID kamu agar bisa pakai command${c.reset}`)
   log(`${c.dim}contoh: 6281234567890@s.whatsapp.net${c.reset}`)
   log(`${c.dim}atau kosongkan jika ingin skip${c.reset}`)
@@ -113,8 +113,8 @@ async function setupAccess(feb) {
   const jid   = input.trim()
 
   if (jid) {
-    addUser(jid, 'dev')
-    log(`${c.green}${jid} registered as dev${c.reset}`)
+    addUser(jid, 'owner')
+    log(`${c.green}${jid} registered as owner${c.reset}`)
   } else {
     log(`${c.dim}skip — gunakan command 'access' untuk tambah user nanti${c.reset}`)
   }

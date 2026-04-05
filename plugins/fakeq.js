@@ -20,7 +20,7 @@ import { weskerSend } from '../system/helper/wesker-message.js'
 export default {
   name    : 'fakeq',
   command : ['fakeq'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'toggle fake quoted (wa verified centang biru)',
 
   async run({ feb, m, args }) {

@@ -114,7 +114,7 @@ export default {
       `*platform:*\n${os.platform()} (${os.arch()})\n\n` +
       `*runtime:*\n${runtime}\n\n` +
       `*project:*\n${pkg.name || '-'} @ ${pkg.version || '-'}\n\n` +
-      `*dependencies:*\n${depCount} deps / ${devDepCount} dev\n\n` +
+      `*dependencies:*\n${depCount} deps / ${devDepCount} owner\n\n` +
       `*files:*\n${rootFiles.length} root files\n${helperFiles} helper modules`
 
     if (chartBuffer) {

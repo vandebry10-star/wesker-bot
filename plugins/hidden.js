@@ -28,7 +28,7 @@ function buildCategoryTree(cat, cmds, isLastCat) {
 export default {
   name: 'hidden command',
   command: ['hidden'],
-  category: ['dev'],
+  category: ['owner'],
   description: 'daftar perintah yang disembunyikan',
 
   async run({ feb, m, wesker, other }) {

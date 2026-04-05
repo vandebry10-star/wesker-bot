@@ -39,7 +39,7 @@ let plugins = 0
 try { plugins = readdirSync('./plugins').filter(f => f.endsWith('.js')).length } catch {}
 
 let commit = ''
-try { commit = execSync('git rev-parse --short HEAD 2>/dev/null').toString().trim() } catch {}
+try { commit = execSync('git rev-parse --short HEAD 2>/owner/null').toString().trim() } catch {}
 
 const mem     = os.totalmem()
 const free    = os.freemem()
