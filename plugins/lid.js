@@ -14,15 +14,8 @@
  * sebagai karya sendiri tanpa izin tertulis.
  * ════════════════════════════════════════════ */
 
-import crypto from 'node:crypto'
-
-function quoteContext(m) {
-  return {
-    stanzaId: m.id,
-    participant: m.sender,
-    quotedMessage: m.raw.message
-  }
-}
+import { quoteContext } from '../system/helper/util.js'
+import { sendNativeFlow } from '../system/helper/nativeflow.js'
 
 export default {
   name: 'get lid',
@@ -71,27 +64,6 @@ export default {
       }
     }
 
-    await feb.relayMessage(chat, msg, {
-      quoted: m,
-      messageId: crypto.randomUUID(),
-      additionalNodes: [
-        {
-          tag: 'biz',
-          attrs: {},
-          content: [
-            {
-              tag: 'interactive',
-              attrs: { type: 'native_flow', v: '1' },
-              content: [
-                {
-                  tag: 'native_flow',
-                  attrs: { v: '9', name: 'mixed' }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    })
+    await sendNativeFlow(feb, chat, msg, { quoted: m })
   }
 }
