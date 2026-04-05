@@ -21,20 +21,13 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { writeFile, unlink, readFile } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
-import { downloadContentFromMessage } from 'baileys'
+import { downloadMedia } from '../system/helper/download-media.js'
 
 const execFileAsync = promisify(execFile)
 
 const MAX_SIDE = 512
 const MAX_VIDEO_SEC = 8
 const VIDEO_FPS = 15
-
-async function downloadMedia(message, type) {
-  const stream = await downloadContentFromMessage(message, type)
-  const chunks = []
-  for await (const chunk of stream) chunks.push(chunk)
-  return Buffer.concat(chunks)
-}
 
 async function imageToSticker(buffer, crop=false){
   let img = sharp(buffer)
