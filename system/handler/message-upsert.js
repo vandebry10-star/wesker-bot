@@ -22,6 +22,7 @@ import { getRole }            from '../helper/access.js'
 import { isLocked }           from '../helper/lock.js'
 import { isDebug }            from '../helper/debug.js'
 import { patchFeb }           from '../helper/feb-patch.js'
+import { isFakeQEnabled }     from '../helper/fakeq.js'
 import {
   hasSession,
   handleFlowInput,
@@ -85,7 +86,7 @@ export async function handleMessageUpsert(feb, messages) {
             const role = getRole(sender)
             if (!role) continue
 
-            const patchedFeb = patchFeb(feb, m)
+            const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
 
             await feb.pluginManager.executePlugin(command, {
               feb    : patchedFeb,
@@ -224,7 +225,7 @@ export async function handleMessageUpsert(feb, messages) {
         continue
       }
 
-      const patchedFeb = patchFeb(feb, m)
+      const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
 
       await feb.pluginManager.executePlugin(extracted.command, {
         feb    : patchedFeb,
