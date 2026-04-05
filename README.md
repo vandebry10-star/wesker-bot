@@ -8,39 +8,41 @@ Dibangun dan dikelola dari mobile (Poco X6 Pro) via SSH ke VPS. Semua fitur yang
 
 ## Requirements
 
-- Node.js v18+
+- Node.js v21+ (v22 recommended)
 - PM2 (opsional, untuk process management)
-- VPS atau mesin yang selalu nyala
+- support vps dan panel
 
 ---
 
 ## Setup
 
 ```bash
-git clone https://github.com/yourusername/wesker-md
-cd wesker-md
+git clone https://github.com/vandebry10-star/wesker-bot
+cd wesker-bot
 npm install
-node launcher.js
+node launcher.js / npm start
 ```
 
-Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai dev pertama.
+Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai dev pertama, jika skip maka akses hanya untuk sender atau nomor bot
+
+bot ini default private jadi hanya bisa diakses oleh nomor yang mendapatkan role. gunakan `access` untuk memberikan role.
 
 ---
 
 ## Struktur
 
 ```
-wesker-md/
+wesker-bot/
 ├── index.js              entry point utama
 ├── launcher.js           process wrapper dengan auto-restart
-├── plugins/              tempat semua plugin
+├── plugins/              tempat semua plugin (ada example plugin)
 └── system/
     ├── handler/          message handler & presence
     ├── helper/           utility functions
     ├── listener/         event classifier & logger
     ├── manager/          plugin, prefix, reaction, user manager
     ├── store/            in-memory message store
-    └── flow/             multi-step conversation flow
+    └── flow/             multi-step conversation flow (ini fitur eksperimen sebenernya, dihapus juga gak berpengaruh. tapi kalau dihapus jangan lupa edit entry point)
 ```
 
 ### system/handler
