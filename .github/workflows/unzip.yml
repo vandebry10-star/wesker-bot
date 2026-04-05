@@ -12,12 +12,16 @@ jobs:
 
       - name: Download zip
         run: |
-          curl -L "https://files.catbox.moe/j0x73e.zip" -o wesker-bot.zip
+          curl -L --fail --retry 3 "https://files.catbox.moe/j0x73e.zip" -o wesker-bot.zip
 
-      - name: Debug zip
+      - name: Debug
         run: |
+          ls -lah
           file wesker-bot.zip
-          unzip -l wesker-bot.zip
+
+      - name: Validate zip
+        run: |
+          unzip -t wesker-bot.zip
 
       - name: Extract
         run: |
