@@ -14,27 +14,33 @@
  * sebagai karya sendiri tanpa izin tertulis.
  * ════════════════════════════════════════════ */
 
-export async function sendNativeFlow(feb, jid, content) {
-  const relayOption = {
-    additionalNodes: [
+import crypto from 'node:crypto'
+
+const NATIVE_FLOW_NODES = [
+  {
+    tag: 'biz',
+    attrs: {},
+    content: [
       {
-        tag: 'biz',
-        attrs: {},
+        tag: 'interactive',
+        attrs: { type: 'native_flow', v: '1' },
         content: [
           {
-            tag: 'interactive',
-            attrs: { type: 'native_flow', v: '1' },
-            content: [
-              {
-                tag: 'native_flow',
-                attrs: { v: '9', name: 'mixed' }
-              }
-            ]
+            tag: 'native_flow',
+            attrs: { v: '9', name: 'mixed' }
           }
         ]
       }
     ]
   }
+]
 
-  await feb.relayMessage(jid, content, relayOption)
+export async function sendNativeFlow(feb, jid, content, options = {}) {
+  const { quoted, messageId } = options
+
+  await feb.relayMessage(jid, content, {
+    messageId: messageId || crypto.randomUUID(),
+    additionalNodes: NATIVE_FLOW_NODES,
+    ...(quoted ? { quoted } : {})
+  })
 }
