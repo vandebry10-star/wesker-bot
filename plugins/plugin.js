@@ -100,10 +100,10 @@ async function validatePlugin(code, filename, pm) {
 function formatValidation(result, filename) {
   const lines = []
   if (!result.ok) {
-    lines.push(`validasi gagal: ${filename}`)
+    lines.push(`❌ validasi gagal: ${filename}`)
     for (const e of result.errors) lines.push(`  ✗ ${e}`)
   } else {
-    lines.push(`validasi ok: ${filename}`)
+    lines.push(`✅ validasi ok: ${filename}`)
   }
   if (result.warnings.length) {
     lines.push(`⚠️ warning:`)
@@ -115,9 +115,8 @@ function formatValidation(result, filename) {
 export default {
   name   : 'plugin',
   command: ['plugin'],
-  category: ['owner'],
-  description: 'manajemen plugin',
-  hidden : false,
+  category: ['dev'],
+  hidden : true,
 
   async run(ctx) {
     const { m, args, feb, other, wesker } = ctx
@@ -224,7 +223,7 @@ plugin -d  <file>`,
       fs.writeFileSync(target, code)
       if (pm) await pm.reloadPlugin(file)
 
-      let msg = (action === '-ir' ? 'plugin replaced' : 'plugin installed') + `\n⟡ file: ${file}`
+      let msg = (action === '-ir' ? '♻️ plugin replaced' : '✅ plugin installed') + `\n⟡ file: ${file}`
       if (result.warnings.length) msg += '\n\n' + formatValidation(result, file)
       return weskerSend(feb, m.chat, msg, { quoted: m.raw })
     }
@@ -235,7 +234,7 @@ plugin -d  <file>`,
       if (!cmd) return weskerSend(feb, m.chat, 'command diperlukan', { quoted: m.raw })
       if (action === 'on') pm.enable(cmd)
       else pm.disable(cmd)
-      return weskerSend(feb, m.chat, `plugin ${action === 'on' ? 'enabled' : 'disabled'}: ${cmd}`, { quoted: m.raw })
+      return weskerSend(feb, m.chat, `plugin ${action === 'on' ? '🟢 enabled' : '🔴 disabled'}: ${cmd}`, { quoted: m.raw })
     }
 
     /* DELETE */
@@ -246,7 +245,7 @@ plugin -d  <file>`,
       if (!fs.existsSync(target)) return weskerSend(feb, m.chat, 'plugin tidak ditemukan', { quoted: m.raw })
       pm?._unregisterPlugin(name)
       fs.unlinkSync(target)
-      return weskerSend(feb, m.chat, `plugin dihapus: ${name}`, { quoted: m.raw })
+      return weskerSend(feb, m.chat, `🗑️ plugin dihapus: ${name}`, { quoted: m.raw })
     }
 
     return weskerSend(feb, m.chat, 'aksi tidak dikenal', { quoted: m.raw })
