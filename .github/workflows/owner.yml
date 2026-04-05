@@ -3,6 +3,10 @@ name: Replace dev → owner
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   replace:
     runs-on: ubuntu-latest
@@ -15,7 +19,6 @@ jobs:
         run: |
           echo "Replacing 'dev' → 'owner'..."
 
-          # replace di semua file (exclude node_modules & .git)
           grep -rl --exclude-dir=node_modules --exclude-dir=.git 'dev' . | while read file; do
             sed -i 's/\bdev\b/owner/g' "$file"
           done
