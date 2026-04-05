@@ -22,6 +22,7 @@ import { getRole }            from '../helper/access.js'
 import { isLocked }           from '../helper/lock.js'
 import { isDebug }            from '../helper/debug.js'
 import { patchFeb }           from '../helper/feb-patch.js'
+import { getReactionCmdDB }   from '../helper/reaction-cmd.js'
 import { isFakeQEnabled }     from '../helper/fakeq.js'
 import {
   hasSession,
@@ -86,7 +87,7 @@ export async function handleMessageUpsert(feb, messages) {
             const role = getRole(sender)
             if (!role) continue
 
-            const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
+            const patchedFeb = patchFeb(feb, m)
 
             await feb.pluginManager.executePlugin(command, {
               feb    : patchedFeb,
@@ -149,12 +150,15 @@ export async function handleMessageUpsert(feb, messages) {
       const stored = messageStore.get(msg.key.id)
       if (stored) stored.serialized = m
 
-      /* ─ reaction — ❌ delete bot message ─ */
+      /* ─ reaction handler ─ */
       if (msg.message?.reactionMessage) {
         const reactMsg  = msg.message.reactionMessage
         const emoji     = reactMsg.text
         const targetKey = reactMsg.key
 
+        if (isDebug()) console.log('[REACTION]', emoji, 'from', sender, 'targetId', targetKey.id)
+
+        // ❌ = delete bot message
         if (emoji === '❌') {
           const targetDoc    = messageStore.get(targetKey.id)
           const isBotMessage =
@@ -164,10 +168,83 @@ export async function handleMessageUpsert(feb, messages) {
 
           if (isBotMessage) {
             await feb.sendMessage(chat, { delete: targetKey })
+            if (isDebug()) console.log('[REACT-DELETE] deleted:', targetKey.id)
             continue
           }
         }
 
+        // rcmd — reaction command
+        const role = getRole(sender)
+        if (role !== 'owner') {
+          if (isDebug()) console.log('[RCMD] bukan owner, skip')
+          continue
+        }
+
+        const db      = getReactionCmdDB()
+        const cmdText = db[emoji]
+        if (!cmdText) {
+          if (isDebug()) console.log('[RCMD] emoji tidak terdaftar:', emoji)
+          continue
+        }
+
+        const targetStored = messageStore.get(targetKey.id)
+        if (!targetStored?.serialized) {
+          if (isDebug()) console.log('[RCMD] pesan target tidak ditemukan di store')
+          continue
+        }
+
+        const targetM            = targetStored.serialized
+        const [command, ...args] = cmdText.split(/\s+/)
+        const plugin             = feb.pluginManager.getPlugin(command)
+
+        if (!plugin) {
+          if (isDebug()) console.log('[RCMD] plugin tidak ditemukan:', command)
+          continue
+        }
+
+        targetM.text = cmdText
+
+        if (!Object.getOwnPropertyDescriptor(targetM, 'quoted')?.get) {
+          Object.defineProperty(targetM, 'quoted', {
+            configurable: true,
+            enumerable  : false,
+            get() {
+              return {
+                ...targetM,
+                raw    : targetM.raw,
+                message: targetM.raw?.message
+              }
+            }
+          })
+        }
+
+        const patchedFeb = patchFeb(feb, targetM)
+
+        await feb.pluginManager.executePlugin(command, {
+          feb    : patchedFeb,
+          wesker : feb.pluginManager,
+          command,
+          args,
+          prefix     : '',
+          commandText: cmdText,
+          m      : targetM,
+          raw    : targetM.raw,
+          q      : targetM.quoted,
+          chat   : targetM.chat,
+          sender,
+          isGroup: targetM.isGroup,
+          reply  : targetM.reply,
+          react  : targetM.react,
+          role,
+          other: {
+            storeMessage : messageStore,
+            pluginManager: feb.pluginManager,
+            wesker       : feb.pluginManager,
+            triggeredBy  : 'reaction'
+          }
+        })
+
+        if (isDebug()) console.log('[RCMD] done:', cmdText)
         continue
       }
 
@@ -225,7 +302,7 @@ export async function handleMessageUpsert(feb, messages) {
         continue
       }
 
-      const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
+      const patchedFeb = patchFeb(feb, m)
 
       await feb.pluginManager.executePlugin(extracted.command, {
         feb    : patchedFeb,
