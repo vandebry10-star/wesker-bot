@@ -55,19 +55,22 @@ export default {
     /* ─ LIST ─ */
     if (!action) {
 
-      if (!entries.length)
-        return m.reply('belum ada user')
+  if (!entries.length)
+    return m.reply('belum ada user')
 
-      let text = '*list akses*\n\n'
+  let text = '*list akses*\n\n'
 
-      entries.forEach((jid, i) => {
-        text += `${i + 1}. ${jid.split('@')[0]}\n`
-        text += `   role: ${data[jid]}${i === 0 ? ' Owner' : ''}\n\n`
-      })
+  entries.forEach((jid, i) => {
+    text += `${i + 1}. ${jid.split('@')[0]}\n`
+    text += `   role: ${data[jid]}${i === 0 ? ' (ini nomor bot)' : ''}\n\n`
+  })
 
-      return m.reply(text.trim())
+  text += `> reply/tag target lalu ketik *access owner/user* untuk memberikan role\n`
+  text += `> role *owner* dapat mengakses semua kategori, role *user* tidak dapat mengakses kategori owner`
+
+  return m.reply(text.trim())
     }
-
+    
     /* ─ TARGET ─ */
     const target = getTarget(m, args)
 
