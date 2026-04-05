@@ -1,0 +1,1451 @@
+[
+  {
+    "timestamp": "2026-04-04T07:08:36.763Z",
+    "id": "ACE9782959B546F2D5D43D0A43DCEB56",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:36.769Z",
+    "id": "AC62E670D9E488466B3E3E8BEB04C739",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:36.839Z",
+    "id": "AC0C4A37A6F49C1AEBE0E0AFE9F94C44",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:36.845Z",
+    "id": "ACEA2FBE41F6EF7F6B8FDDF23811A9D1",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:36.848Z",
+    "id": "AC38761552637CC0897577ADE798E801",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:36.997Z",
+    "id": "ACB9F369907D78BB0F9BAE01B5F85C6F",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:37.901Z",
+    "id": "AC7EC7D05A89252235FAC364A0A6FD86",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:38.809Z",
+    "id": "AC0D1E395C854DFCCE46B5CB2E931D01",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:48.614Z",
+    "id": "AC4ADD66973723D71DB8FF2A5A3EE3A5",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "sender_key_distribution",
+    "types": "text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:49.322Z",
+    "id": "5a483540-0c80-4a8f-a01d-55dacabbda33",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "sender_key_distribution",
+    "types": "view_once, extended_text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:49.532Z",
+    "id": "3EB046771F83EDF3B06C0C",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:54.382Z",
+    "id": "AC5E4D49497C13778A446A6E49470BDD",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:54.681Z",
+    "id": "5abf54be-88ce-4cbc-bed1-424621a249f8",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "view_once, extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:54.875Z",
+    "id": "3EB0E82FF8BBBDBC318A35",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:57.952Z",
+    "id": "AC9D2D9EB5FD1D2A7FA04E02843FC0D8",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:58.351Z",
+    "id": "3EB02385152AB2F0D73093",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "164845878006006@lid",
+    "primary": "sender_key_distribution",
+    "types": "extended_text, quoted, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:08:58.407Z",
+    "id": "3EB09139A3FDF1CE68EDD2",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "164845878006006@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:09:13.385Z",
+    "id": "ACB9DF1C13EEE7453AE8643BAA17E95C",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "sender_key_distribution",
+    "types": "text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:09:18.600Z",
+    "id": "AC7E765901240B321BC6191EAA2FDD70",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:09:38.481Z",
+    "id": "ACD6FB3515B8046F6D95D025B4590D14",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:09:41.417Z",
+    "id": "AC0DA719C3D06016CDBE1F32C22B491C",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:09:44.082Z",
+    "id": "AC8B5CA41A29E38D7255D45BB4A49753",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:10:34.390Z",
+    "id": "ACE64F94C6EDCA518673D369521BA6B0",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:10:34.632Z",
+    "id": "3EB0F73CBDA6566766248D",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "164845878006006@lid",
+    "primary": "extended_text",
+    "types": "extended_text, quoted"
+  },
+  {
+    "timestamp": "2026-04-04T07:10:34.733Z",
+    "id": "3EB09C897A409CA533D811",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "164845878006006@lid",
+    "primary": "unknown",
+    "types": "view_once, unknown"
+  },
+  {
+    "timestamp": "2026-04-04T07:10:34.776Z",
+    "id": "3EB02CE924FCBE4CEFC850",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "164845878006006@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:07.527Z",
+    "id": "ACF2730096EB6ADBD26FB0D16D6F0B91",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:07.823Z",
+    "id": "4ee05fa2-ccb3-4e02-beee-73a3fb069fd9",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "view_once, extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:08.088Z",
+    "id": "3EB03EFB89AB1426E02104",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:21.527Z",
+    "id": "AC071EB1E0E23EF0A316720148FDFFAE",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:21.800Z",
+    "id": "3EB079629255C2857C7FBE",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:22.021Z",
+    "id": "3EB0406A89728A52092481",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:22.304Z",
+    "id": "3EB0F8F5FA3E9F145C6A2C",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:11:22.510Z",
+    "id": "3EB0DED02711908A41AFDC",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:09.448Z",
+    "id": "ACCBEC3A614D11BAA270BBC48016F15B",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:09.793Z",
+    "id": "3EB08E1956A782AD1B3CC1",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:10.152Z",
+    "id": "3EB0E7BDF532BA0A7DBBC5",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:10.377Z",
+    "id": "3EB0A452FDC89F8B9D8006",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:10.706Z",
+    "id": "3EB099334D9B85E9E1AE7F",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:40.309Z",
+    "id": "AC7A404E083201B6382A2AC95283507E",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:40.617Z",
+    "id": "3EB034692F511FB5C2F603",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:40.925Z",
+    "id": "3EB0EEEA0B814F23648FC8",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:41.142Z",
+    "id": "3EB0CCBDEDECCE0BDD317B",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:12:41.361Z",
+    "id": "3EB0A4CCA036C4D80AF8C5",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:13:17.506Z",
+    "id": "AC787A9394A3CD8ED909E4FFFEAADF4B",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:13:24.767Z",
+    "id": "ACD9D84B93CC2B9D6ABE4541DABA0511",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "extended_text",
+    "types": "extended_text, quoted"
+  },
+  {
+    "timestamp": "2026-04-04T07:13:25.086Z",
+    "id": "8396d494-aac2-40c6-9d7d-df5036c8c86d",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "unknown",
+    "types": "view_once, unknown"
+  },
+  {
+    "timestamp": "2026-04-04T07:13:25.395Z",
+    "id": "3EB01A8BF3D4F410E9CE0D",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:13:34.772Z",
+    "id": "ACC3818ACABED35869BA937B4C8B31ED",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:16.441Z",
+    "id": "AC3809536C63437BF8C09E211F761068",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:16.895Z",
+    "id": "3EB0DCFF23171293FCB93D",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:17.123Z",
+    "id": "3EB02564F5B1846A1FBA3E",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:17.319Z",
+    "id": "3EB08AB7625ECEBF1549DC",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:17.975Z",
+    "id": "3EB04A03158495B6F849BE",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:18.214Z",
+    "id": "3EB00E5AC275FF2652FD7B",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:18.586Z",
+    "id": "3EB0DEFD0E0D238D1744AE",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:20.369Z",
+    "id": "ACCA728030208249BD6F68AECD332969",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:20.687Z",
+    "id": "b8e01c7b-9f98-495d-acbe-b5039c33569b",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "view_once, extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:20.905Z",
+    "id": "3EB013B723FA22CDB22869",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:23.303Z",
+    "id": "AC716621B4831C1053D57442C684B546",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:28.307Z",
+    "id": "ACF17F6F1C18074F5789F8C075C94CB3",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:28.640Z",
+    "id": "3EB0D80C489D89F4858DCD",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:28.863Z",
+    "id": "3EB0CA4D6790C6394C4A1A",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:29.183Z",
+    "id": "3EB0F6B709CC0D84CB7465",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:48.280Z",
+    "id": "AC8FD56EB1C34317DFB3D265ABDEEEE8",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:48.617Z",
+    "id": "3EB0FEA44D1BE397BAB4A3",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:48.976Z",
+    "id": "3EB04C3D86EAF7CA42DA75",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:50.321Z",
+    "id": "AC141EF1CAAA7336E2F5244021C6A931",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:14:51.136Z",
+    "id": "3EB09C328511C7D4ECCBE1",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:15:20.104Z",
+    "id": "ACDECABCB7F08F04012DD12CFC2D9707",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:17:32.084Z",
+    "id": "AC4E3CA43BACEE0FF25B326FA52EA619",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "sender_key_distribution",
+    "types": "text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:17:50.467Z",
+    "id": "ACEA2B76CE0741B6C8474FCB2507AE74",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:17:51.053Z",
+    "id": "3EB0F2E86EAE536700EF6C",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:54.512Z",
+    "id": "AC91A3AF222A57DD9E39C3ED888A726F",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:54.521Z",
+    "id": "ACFB45FE68ED780FD4444EC1BFB4E0EA",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:54.846Z",
+    "id": "AC3D73ADFB87263DFC1665B2EA618B8C",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:54.851Z",
+    "id": "AC50560C79E1EA8E7DF1C517CC0A014D",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:54.861Z",
+    "id": "AC0C71E532AE39E853B5FE9266C9A720",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:54.951Z",
+    "id": "ACC9D1C276828F03B1477D7C5250DF42",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:56.198Z",
+    "id": "AC9BA165EF4BBD60D695DC23D50BE177",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:27:57.113Z",
+    "id": "AC55F7430E99939F7372CBC16B8A9AC4",
+    "from": "6287853218129@s.whatsapp.net",
+    "fromMe": false,
+    "participant": "",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:17.525Z",
+    "id": "ACD59D2A3A8CED86A5AB38EB80B4164B",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "sender_key_distribution",
+    "types": "text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:22.636Z",
+    "id": "ACC05D6AF918A8078FDC49F4DEFD453C",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:23.332Z",
+    "id": "7dde4f93-6652-4ded-a0d6-0c2b5a2e4e45",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "sender_key_distribution",
+    "types": "view_once, extended_text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:23.530Z",
+    "id": "3EB038E7A2D45CEE2EA11B",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:23.745Z",
+    "id": "ACA6FE110FCB455A60D83E2AF8B9AE7C",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:24.011Z",
+    "id": "34409163-96a2-4a5e-9fc8-aa0ffd439a6f",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "unknown",
+    "types": "view_once, unknown"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:24.203Z",
+    "id": "3EB0F8EE07E87D3CFF673F",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:36.359Z",
+    "id": "ACA863944D5326F257F9927F13D10277",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:36.655Z",
+    "id": "3EB0390F63AF43087DFFCE",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:36.932Z",
+    "id": "3EB06185A89632273B0144",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:37.135Z",
+    "id": "3EB00774DC5681019955F9",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:38.277Z",
+    "id": "3EB01A1DD5C956E93FC206",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:38.610Z",
+    "id": "3EB08AE37C1D7140123ACB",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:39.072Z",
+    "id": "3EB07A434B2E7CAC12E950",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:39.417Z",
+    "id": "AC94742C33EB112CBCFD9DE4DFEAF4E5",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:39.726Z",
+    "id": "442dece3-e15f-427b-b62f-3691947ed837",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "view_once, extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:39.993Z",
+    "id": "3EB05FAA1A915B6655358C",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:40.298Z",
+    "id": "3EB06A62306E601B0B3C11",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:52.975Z",
+    "id": "AC9A4698E3D2865BC5460D3BF351A3BB",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:58.125Z",
+    "id": "AC15295CC1C82EA77B52BEA44510C757",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:58.410Z",
+    "id": "59817785-2caf-4be3-91bc-5329e62d057f",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "view_once, extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:58.564Z",
+    "id": "3EB0E0B8586072925BBD80",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:28:59.011Z",
+    "id": "3EB0C85E71236FA1DD8CBC",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:18.001Z",
+    "id": "A5BAF74CEF313C52AC42F2BC9C02502C",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "164845878006006@lid",
+    "primary": "sender_key_distribution",
+    "types": "text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:21.618Z",
+    "id": "ACED0DB030DCBBA4CADBC2C0D67265B6",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "extended_text",
+    "types": "extended_text, quoted"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:21.921Z",
+    "id": "3EB097BB9824505BF757E4",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "unknown",
+    "types": "unknown"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:22.195Z",
+    "id": "3EB00C0CE3847F2F152931",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:22.344Z",
+    "id": "3EB06DB4BFA70CE2582BED",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:25.403Z",
+    "id": "AC9528B9BE782845CC8A4D36707C9B3F",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "template_button_response",
+    "types": "template_button_response"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:25.667Z",
+    "id": "3EB0A378A3E92A10C3E110",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:25.854Z",
+    "id": "3EB01B9F3327D350F82B13",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:25.855Z",
+    "id": "3EB05B92994C4CF546F6B1",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:26.174Z",
+    "id": "3EB0D1D49F499C2248BF1A",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:32.025Z",
+    "id": "AC6EB4C6942AFDF1474652BF77442CAE",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:32.321Z",
+    "id": "3EB02980787B3E6EC7FBD6",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:32.425Z",
+    "id": "3EB069AAD52A7C828F629C",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:32.607Z",
+    "id": "3EB07AF09F444CB1DBFD99",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:29:32.755Z",
+    "id": "3EB037E7DD1B8BB60880E7",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:00.260Z",
+    "id": "ACBBFE432FA5D7CCA4CB1CB3CC8DBD8A",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:00.515Z",
+    "id": "3EB0328B7E1844BC0861F9",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "unknown",
+    "types": "unknown"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:00.832Z",
+    "id": "3EB0B05EE3322BD2C558BF",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:00.997Z",
+    "id": "3EB05B903366592F82E42D",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:12.619Z",
+    "id": "ACFE021FF8C11D1D5D85515B1B63F09A",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "extended_text",
+    "types": "extended_text, quoted"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:12.894Z",
+    "id": "3EB035C521A8F8AB4E2B59",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "unknown",
+    "types": "unknown"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:13.198Z",
+    "id": "3EB05D5AD1569BFE79BA64",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:13.357Z",
+    "id": "3EB0FA9E8DFD4DCF14CFC5",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:15.941Z",
+    "id": "AC48BDBC2A84FFA56405A8E6D84488F9",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "template_button_response",
+    "types": "template_button_response"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:16.242Z",
+    "id": "3EB019468FBFA91444A8EB",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:16.344Z",
+    "id": "3EB06A618BD5CD3C39C6EA",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:16.525Z",
+    "id": "3EB07F1F3C3BACEBEBF63B",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:16.700Z",
+    "id": "3EB0BD99A4DCA4225F6C84",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:33.678Z",
+    "id": "ACC2274930862C91B6289336D5CCF10E",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:33.993Z",
+    "id": "f9c70e7d-72f6-4018-a70e-2398deb7e9d4",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "view_once, extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:34.270Z",
+    "id": "3EB068396D16892C0EF507",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:37.106Z",
+    "id": "AC44580AAD73E975FF5CB0FC595B06D4",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:37.374Z",
+    "id": "2cacfaa3-87d7-4941-82fc-f6b81254e484",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:37.699Z",
+    "id": "3EB0FD84ECDAADC1E1BEC4",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "27832059195464@lid",
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:30:37.852Z",
+    "id": "3EB0BA274534293E0AC34E",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:06.037Z",
+    "id": "ACDB88A93753AF4F4A0CE909F587E8A1",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:06.427Z",
+    "id": "3EB02A61969E80354C6DF4",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:06.750Z",
+    "id": "3EB0F780C8D72E2FF4DBC9",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:11.374Z",
+    "id": "AC880D14C055C3F601C7719C018BDB4F",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "extended_text",
+    "types": "extended_text, quoted"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:12.095Z",
+    "id": "3EB0E79E24E8122F813CA9",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:29.334Z",
+    "id": "ACEF09D5119B3F8AAB579437BF883737",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "sender_key_distribution",
+    "types": "text, sender_key_distribution"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:32.740Z",
+    "id": "AC291BBDB1CC69D0C5F757462B77EE8E",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:33.108Z",
+    "id": "3EB0D5E3EB2ED75CB7FFEB",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "extended_text",
+    "types": "extended_text"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:33.616Z",
+    "id": "3EB01E9F60F61AB712D9EB",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "protocol",
+    "types": "protocol"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:33.980Z",
+    "id": "3EB0E69CBDE6BFF36E6903",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:40.900Z",
+    "id": "AC0CEA006EBB357C47ED6DA167C3832D",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:31:41.644Z",
+    "id": "3EB06007019E85D43E7FC0",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:03.484Z",
+    "id": "AC7DE227F5C9FFB55F8539C6DB1F4D40",
+    "from": "120363422222111867@g.us",
+    "fromMe": false,
+    "participant": "115414931636252@lid",
+    "primary": "image",
+    "types": "image"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:15.168Z",
+    "id": "ACEC588268D9C7BC70AE1B18282E3F95",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "extended_text",
+    "types": "extended_text, quoted"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:15.557Z",
+    "id": "3EB088A9C6412F1F708159",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:16.412Z",
+    "id": "3EB03E04CCF2402E84BE6C",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "sticker",
+    "types": "sticker"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:16.742Z",
+    "id": "3EB04592D9FAF26F054EFC",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:17.153Z",
+    "id": "3EB0F8AEE64F27CE7616A9",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:35.034Z",
+    "id": "AC1941CF87CCD69BC4BF66A87D036864",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:35.750Z",
+    "id": "3EB0514DD9D1C51940A175",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:45.112Z",
+    "id": "AC3154A5D1D836EA77D8F0C779A09ABF",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": "89263077077232@lid",
+    "primary": "text",
+    "types": "text"
+  },
+  {
+    "timestamp": "2026-04-04T07:32:45.899Z",
+    "id": "3EB071784C19B6713B7C17",
+    "from": "120363422222111867@g.us",
+    "fromMe": true,
+    "participant": null,
+    "primary": "reaction",
+    "types": "reaction"
+  }
+]
