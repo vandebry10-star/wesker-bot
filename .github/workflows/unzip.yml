@@ -1,4 +1,4 @@
-name: Extract wesker-bot
+name: Extract
 
 on:
   workflow_dispatch:
@@ -10,24 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download zip
-        run: |
-          curl -L --fail --retry 3 "https://files.catbox.moe/j0x73e.zip" -o wesker-bot.zip
-
-      - name: Debug
+      - name: Debug repo
         run: |
           ls -lah
-          file wesker-bot.zip
 
       - name: Validate zip
         run: |
+          file wesker-bot.zip
           unzip -t wesker-bot.zip
 
       - name: Extract
         run: |
-          unzip -o wesker-bot.zip -d temp
-          cp -r temp/wesker-bot/* .
-          rm -rf temp wesker-bot.zip
+          unzip -o wesker-bot.zip
+          ls -lah
+
+      - name: Move files
+        run: |
+          cp -r wesker-bot/* .
+          rm -rf wesker-bot wesker-bot.zip
 
       - name: Commit
         run: |
