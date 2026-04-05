@@ -1,4 +1,4 @@
-name: Extract wesker-bot.zip (manual)
+name: Extract wesker-bot.zip
 
 on:
   workflow_dispatch:
@@ -10,19 +10,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: List files (debug)
+      - name: List files
         run: ls -lah
 
-      - name: Extract app.zip
+      - name: Check zip
+        run: |
+          if [ ! -f wesker-bot.zip ]; then
+            echo "ZIP NOT FOUND"
+            exit 1
+          fi
+
+      - name: Extract zip
         run: |
           unzip wesker-bot.zip -d temp
           cp -r temp/* .
           rm -rf temp wesker-bot.zip
 
-      - name: Commit extracted files
+      - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "febry drowning in termiuskuraaa"
+          git diff --cached --quiet || git commit -m "extract wesker bot"
           git push
