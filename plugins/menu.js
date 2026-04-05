@@ -1,101 +1,85 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : plugins/menu.js
- * desc    : plugins › menu
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
- * ════════════════════════════════════════════ */
-
-import { sendNativeFlow } from '../system/helper/nativeflow.js'
-import { formatSeconds }  from '../system/helper/index.js'
-
 export default {
-  name   : 'menu',
-  command: ['menu', 'm'],
+  name: 'menu',
+  command: ['menu'],
   category: ['main'],
-  description: 'daftar perintah berdasarkan kategori',
 
-  async run({ feb, m, chat, wesker }) {
-    if (!wesker) return m.reply('plugin manager tidak tersedia')
+  async run({ feb, m, args }) {
+    const plugins = feb.pluginManager.plugins
 
-    const plugins = wesker.getAllPlugins().filter(p =>
-      !p.hidden && !p.noMenu && !p.category?.includes('hidden') &&
-      Array.isArray(p.command) && p.command[0]
-    )
+    const user = m.sender
+    const username = user.split('@')[0]
 
-    // kelompokkan per kategori
-    const map = new Map()
-    for (const p of plugins) {
-      const cat = (p.category?.[0] || 'other').toLowerCase()
-      if (!map.has(cat)) map.set(cat, [])
-      map.get(cat).push(p)
+    const hour = new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Jakarta',
+      hour: 'numeric',
+      hour12: false
+    }) * 1
+
+    let greet = 'malam'
+    if (hour >= 4  && hour < 12) greet = 'pagi'
+    else if (hour >= 12 && hour < 15) greet = 'siang'
+    else if (hour >= 15 && hour < 18) greet = 'sore'
+
+    const map = {}
+    for (const [, p] of plugins) {
+      if (p.hidden) continue
+      const cats = Array.isArray(p.category) ? p.category : ['other']
+      const cmd = Array.isArray(p.command) ? p.command[0] : null
+      if (!cmd) continue
+      for (const c of cats) {
+        if (!map[c]) map[c] = []
+        map[c].push(cmd)
+      }
     }
 
-    const sortedCats = [...map.keys()].sort()
-    const totalCmd   = plugins.length
+    const categories = Object.keys(map).sort()
+    const totalCmd = categories.reduce((acc, c) => acc + map[c].length, 0)
 
-    // build sections untuk list message
-    const sections = sortedCats.map(cat => {
-      const list = map.get(cat).sort((a, b) => a.command[0].localeCompare(b.command[0]))
-      return {
-        title: cat.toUpperCase(),
-        rows : list.map(p => ({
-          header     : p.command[0],
-          title      : p.command[0],
-          description: p.description
-            ? p.description.split('\n')[0].slice(0, 72)
-            : `alias: ${p.command.slice(1).join(', ') || '-'}`,
-          id: p.command[0]
-        }))
+    // ── menu <kategori> ──
+    if (args[0] && args[0].toLowerCase() !== 'all') {
+      const target = args[0].toLowerCase()
+
+      if (!map[target]) {
+        const text =
+          `kategori *${target}* tidak ditemukan.\n\n` +
+          categories.map(c => `🔖 ⌞ ${c} ⌝`).join('\n') +
+          `\n\nketik *menu <kategori>* untuk membuka`
+
+        return await feb.sendMessage(m.chat, { text, mentions: [user] }, { quoted: m.raw })
       }
-    })
 
-    const uptime = formatSeconds(Math.floor(process.uptime()))
+      const cmds = map[target].sort()
+      const last = cmds.length - 1
 
-    const msg = {
-      viewOnceMessage: {
-        message: {
-          interactiveMessage: {
-            header: {
-              title             : 'wesker md',
-              hasMediaAttachment: false
-            },
-            body: {
-              text:
-                `total command : ${totalCmd}\n` +
-                `kategori      : ${sortedCats.length}\n` +
-                `uptime        : ${uptime}\n\n` +
-                `pilih kategori untuk lihat command`
-            },
-            footer: { text: 'wesker • menu' },
-            nativeFlowMessage: {
-              buttons: [
-                {
-                  name: 'single_select',
-                  buttonParamsJson: JSON.stringify({
-                    title   : 'pilih kategori',
-                    sections: sections
-                  })
-                }
-              ],
-              messageParamsJson: JSON.stringify({
-                in_thread_buttons_limit: 1
-              })
-            }
-          }
+      const text =
+        `*🔖  ${target.toUpperCase()}*\n` +
+        cmds.map((c, i) => i === last ? `└─ ${c}` : `├─ ${c}`).join('\n') +
+        `\n\n> ketik *menu <perintah>* untuk detail`
+
+      return await feb.sendMessage(m.chat, { text, mentions: [user] }, { quoted: m.raw })
+    }
+
+    // ── menu (home) ──
+    const text =
+      `halo @${username}, selamat ${greet}\n\n` +
+      categories.map(c => `🔖 ⌞ ${c} ⌝`).join('\n') +
+      `\n\n> ketik *menu <kategori>* untuk melihat list perkategori\n` +
+      `> atau *allmenu* untuk semua list`
+
+    await feb.sendMessage(m.chat, {
+      text,
+      mentions: [user],
+      contextInfo: {
+        externalAdReply: {
+          title: 'wesker-bot',
+          body: 'dikembangkan oleh febry wesker',
+          thumbnailUrl: 'https://api.azbry.com/api/wesker.jpg',
+          sourceUrl: 'https://github.com/vandebry10-star/wesker-bot',
+          mediaType: 1,
+          renderLargerThumbnail: true,
+          showAdAttribution: false
         }
       }
-    }
-
-    await sendNativeFlow(feb, chat, msg, { quoted: m })
+    }, { quoted: m.raw })
   }
 }
-
