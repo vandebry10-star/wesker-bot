@@ -3,32 +3,8 @@
  * file    : plugins/getid.js
  * ════════════════════════════════════════════ */
 
-import crypto from 'node:crypto'
-
-function normalizeMentions(mentions = []) {
-  if (!Array.isArray(mentions)) mentions = [mentions]
-  return mentions.filter(Boolean)
-}
-
-function buildContextInfo(mentions = []) {
-  return {
-    participant: '0@s.whatsapp.net',
-    quotedMessage: {
-      contactMessage: {
-        displayName: '🔖 wesker',
-        vcard:
-          'BEGIN:VCARD\n' +
-          'VERSION:3.0\n' +
-          'N:XL;Wesker,;;;\n' +
-          'FN:Wesker\n' +
-          'item1.TEL;waid=13135550002:+1 (313) 555-0002\n' +
-          'item1.X-ABLabel:Ponsel\n' +
-          'END:VCARD'
-      }
-    },
-    mentionedJid: normalizeMentions(mentions)
-  }
-}
+import { normalizeMentions, buildContextInfo } from '../system/helper/wesker-message.js'
+import { sendNativeFlow } from '../system/helper/nativeflow.js'
 
 export default {
   name: 'get group jid',
@@ -77,29 +53,6 @@ export default {
       }
     }
 
-    const additionalNodes = [
-      {
-        tag: 'biz',
-        attrs: {},
-        content: [
-          {
-            tag: 'interactive',
-            attrs: { type: 'native_flow', v: '1' },
-            content: [
-              {
-                tag: 'native_flow',
-                attrs: { v: '9', name: 'mixed' }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-
-    await feb.relayMessage(chat, msg, {
-      quoted: m,
-      messageId: crypto.randomUUID(),
-      additionalNodes
-    })
+    await sendNativeFlow(feb, chat, msg, { quoted: m.raw })
   }
 }
