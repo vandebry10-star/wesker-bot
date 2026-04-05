@@ -55,6 +55,7 @@ Kumpulan utility yang dipakai oleh handler dan plugin. Yang paling sering dipaka
 
 - `nativeflow.js` untuk bikin interactive message (button, sheet, copy link, dll)
 - `quoted-text.js` untuk kirim dan edit pesan dengan custom quoted context
+- `wesker-album.js` untuk kirim albumMessage, ada delay saat mengirim gambar mencegah spam
 - `wesker-message.js` sebagai universal sender yang bisa handle text, image, document, dan lainnya dalam satu fungsi
 - `access.js` untuk role-based access control berbasis JSON
 
