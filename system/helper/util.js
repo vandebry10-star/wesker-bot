@@ -14,6 +14,14 @@
  * sebagai karya sendiri tanpa izin tertulis.
  * ════════════════════════════════════════════ */
 
+export function quoteContext(m) {
+  return {
+    stanzaId: m.id,
+    participant: m.sender,
+    quotedMessage: m.raw.message
+  }
+}
+
 export function extractCommand(text, prefixes) {
   
   if (typeof text !== 'string') return null
