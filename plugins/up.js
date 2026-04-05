@@ -14,10 +14,11 @@
  * sebagai karya sendiri tanpa izin tertulis.
  * ════════════════════════════════════════════ */
 
-import crypto   from 'node:crypto'
 import fetch    from 'node-fetch'
 import FormData from 'form-data'
-import { downloadContentFromMessage } from 'baileys'
+import { downloadMedia } from '../system/helper/download-media.js'
+import { quoteContext }  from '../system/helper/util.js'
+import { sendNativeFlow } from '../system/helper/nativeflow.js'
 
 /* ─ uploaders ─ */
 async function uguu(buffer, filename) {
@@ -46,19 +47,8 @@ async function catbox(buffer, filename) {
 }
 
 /* ─ helpers ─ */
-function quoteContext(m) {
-  return { stanzaId: m.id, participant: m.sender, quotedMessage: m.raw.message }
-}
-
 function getExt(msg) {
   return msg.mimetype?.split('/')[1] || msg.fileName?.split('.').pop() || 'bin'
-}
-
-async function toBuffer(msg, type) {
-  const stream = await downloadContentFromMessage(msg, type)
-  let buffer = Buffer.alloc(0)
-  for await (const chunk of stream) buffer = Buffer.concat([buffer, chunk])
-  return buffer
 }
 
 export default {
@@ -88,7 +78,7 @@ export default {
 
     let buffer
     try {
-      buffer = await toBuffer(msg, type)
+      buffer = await downloadMedia(msg, type)
     } catch {
       return m.reply('gagal ambil media')
     }
@@ -167,19 +157,8 @@ export default {
       }
     }
 
-    await feb.relayMessage(chat, out, {
-      messageId      : crypto.randomUUID(),
-      additionalNodes: [{
-        tag    : 'biz',
-        attrs  : {},
-        content: [{
-          tag    : 'interactive',
-          attrs  : { type: 'native_flow', v: '1' },
-          content: [{ tag: 'native_flow', attrs: { v: '9', name: 'mixed' } }]
-        }]
-      }]
-    })
+    await sendNativeFlow(feb, chat, out)
 
     await react('✅')
   }
-}
+}}
