@@ -21,7 +21,7 @@ const _require = createRequire(import.meta.url)
 
 export default {
   name    : 'eval',
-  hidden  : true,
+  hidden  : false,
   command : ['e'],
   category: ['owner'],
   description: 'eval our code',
