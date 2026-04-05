@@ -266,26 +266,17 @@ Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `st
 | getid | `gid` | cek JID sender dan chat |
 | lid | `lid` | ambil LID target |
 | im | `im` | inspect raw message object |
-| whois | `whois` | info lengkap user dengan copy button |
-| getpp | `getpp` | ambil foto profil via reply |
-| ip | `ip` | lookup info IP atau domain |
 | sticker | `sticker` | convert gambar/video ke sticker |
-| toimg | `toimg` | convert sticker ke gambar |
 | up | `up` | upload media ke tmpfiles, uguu, catbox |
-| cat | `cat` | tampilkan isi pesan/file dengan copy button |
 | lock | `lock` | lock/unlock bot global |
 | fakeq | `fakeq` | toggle fake quoted wa verified |
 | debug | `debug` | toggle debug log runtime |
-| setname | `setname` | ganti nama profil bot |
-| setpp | `setpp` | ganti foto profil bot |
-| setbio | `setbio` | ganti bio profil bot |
 | reload | `reload` | reload semua plugin + diff snapshot |
 | rcmd | `rcmd` | reaction command manager |
 | afk | `afk` | set status away from keyboard |
 | hidden | `hidden` | lihat command yang disembunyikan |
 | access | `access` | manage role user |
 | unaccess | `unaccess` | lepas akses diri sendiri |
-| del | `del` | hapus pesan bot |
 | e / ev | `e` `ev` | eval JavaScript langsung dari chat |
 | plugin | `plugin` | plugin manager (install, reload, list, check) |
 | help | `help` | daftar command |
