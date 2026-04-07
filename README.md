@@ -1,6 +1,12 @@
 # Wesker-bot
+
 ---
 
+<p align="center">
+  <img src="https://cloud.yardansh.com/pyRWgM.jpg" />
+</p>
+
+---
 ## Requirements
 
 - Node.js v21+ (v22 recommended)
