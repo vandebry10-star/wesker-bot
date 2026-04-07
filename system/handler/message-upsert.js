@@ -174,7 +174,7 @@ export async function handleMessageUpsert(feb, messages) {
         }
 
         // rcmd — reaction command
-        const role = getRole(sender)
+        const role = getRole(sender, feb.user?.id)
         if (role !== 'owner') {
           if (isDebug()) console.log('[RCMD] bukan owner, skip')
           continue
