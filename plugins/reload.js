@@ -66,7 +66,7 @@ export default {
   name: 'reload',
   command: ['reload', 'rd'],
   category: ['owner'],
-  description: 'reload manual folder plugins'
+  description: 'reload manual folder plugins',
 
   async run({ m, other, wesker }) {
     const pm = wesker
