@@ -40,6 +40,7 @@ import { createPresenceHandler } from './system/handler/presence-update.js'
 import { CoreListener }          from './system/listener/core-listener.js'
 import { BOT_INFO }              from './system/helper/index.js'
 import { loadFlows }             from './system/flow/flow-loader.js'
+import { addUser }.              from './system/helper/access.js'
 
 setDebug(process.env.DEBUG === '1')
 
