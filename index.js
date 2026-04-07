@@ -231,6 +231,12 @@ async function startWesker() {
       qrcode.generate(qr, { small: true })
 
     if (connection === 'open') {
+      const botJid = feb.user?.id
+
+if (botJid) {
+  addUser(botJid, 'owner')
+  console.log('✓ bot auto registered as owner:', botJid)
+}
       const debugOn  = process.env.DEBUG === '1'
       const now      = new Date().toLocaleString('id-ID', {
         timeZone    : 'Asia/Jakarta',
