@@ -28,8 +28,14 @@ function extractNumber(jid) {
   return jid.replace(/:\d+/, '').split('@')[0]
 }
 
-export function getRole(jid) {
+export function getRole(jid, botJid = null) {
   if (!jid) return null
+
+  // 🔥 PRIORITAS: bot sendiri auto owner
+  if (botJid && extractNumber(jid) === extractNumber(botJid)) {
+    return 'owner'
+  }
+
   const db = cache.get()
 
   if (db[jid]) return db[jid]
