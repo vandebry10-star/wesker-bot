@@ -45,6 +45,33 @@ wesker-bot/
     ├── store/            in-memory message store
     └── flow/             multi-step conversation flow
 ```
+---
+# Access Control
+
+Role system berbasis file JSON di `system/cache/access.json`.
+
+Ada tiga role: `owner` (akses penuh), `user` (tidak bisa akses kategori owner), dan tidak terdaftar (ditolak).
+
+```
+access                     lihat daftar access
+access owner (reply)       add role owner
+access user (reply)        add role user
+unaccess me                lepas akses diri sendiri (user)
+```
+
+## Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai owner pertama.
+Contoh isi `access.json` yang benar
+```json
+$ cat system/cache/access.json
+─────────────────
+{
+  "628xxxxxx:1@s.whatsapp.net": "owner", // ini nomor bot otomatis setelah pairing
+  "115xxxxxxxxxxx@lid": "owner", // ini contoh format setelah add access yang benar
+  "239xxxxxxxxxxx@lid": "user" // dan ini untuk role user
+}
+```
+
+---
 
 ### system/handler
 
@@ -113,33 +140,6 @@ Context yang tersedia di `run()`:
 | `q` | quoted message shorthand |
 | `raw` | raw WA message |
 | `other.storeMessage` | akses ke message store |
-
----
-
-# Access Control
-
-Role system berbasis file JSON di `system/cache/access.json`.
-
-Ada tiga role: `owner` (akses penuh), `user` (tidak bisa akses kategori owner), dan tidak terdaftar (ditolak).
-
-```
-access                     lihat daftar access
-access owner (reply)       add role owner
-access user (reply)        add role user
-unaccess me                lepas akses diri sendiri (user)
-```
-
-## Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai owner pertama.
-Contoh isi `access.json` yang benar
-```json
-$ cat system/cache/access.json
-─────────────────
-{
-  "628xxxxxx:1@s.whatsapp.net": "owner", // ini nomor bot otomatis setelah pairing
-  "115xxxxxxxxxxx@lid": "owner", // ini contoh format setelah add access yang benar
-  "239xxxxxxxxxxx@lid": "user" // dan ini untuk role user
-}
-```
 
 ---
 
