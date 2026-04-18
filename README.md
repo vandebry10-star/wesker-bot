@@ -59,7 +59,8 @@ access user (reply)        add role user
 unaccess me                lepas akses diri sendiri (user)
 ```
 
-## Saat pertama konek, bot otomatis minta kamu daftarkan JID/LID kamu sebagai owner pertama.
+## Saat pertama konek, bot otomatis mendaftarkan nomor bot sebagai owner pertama.
+
 Contoh isi `access.json` yang benar
 ```json
 $ cat system/cache/access.json
