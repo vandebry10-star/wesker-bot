@@ -189,6 +189,8 @@ Tipe button yang didukung:
 - `single_select` untuk dropdown list
 - `limited_time_offer` untuk label dengan countdown expired
 
+# plugin example button bisa cek `plugins/beton.js`
+
 ---
 
 ## Reaction Command (rcmd)
@@ -295,6 +297,7 @@ Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `st
 | help | `help` | daftar command |
 | menu | `menu` | menampilkan list kategori |
 | allmenu | `allmenu` | menampilkan semua list menu yang tersedia |
+| beton | `allmenu` | menampilkan semua list button |
 
 ---
 
