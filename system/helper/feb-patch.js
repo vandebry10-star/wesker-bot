@@ -1,18 +1,8 @@
 /* ════════════════════════════════════════════
  * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : system/helper/feb-patch.js
- * desc    : system › helper › feb-patch
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
  * ════════════════════════════════════════════ */
+
+import { isFakeQEnabled } from './fakeq.js'
 
 const WA_PARTICIPANT = '0@s.whatsapp.net'
 
@@ -21,7 +11,6 @@ const MSG_TYPES_WITH_CTX = [
   'stickerMessage', 'documentMessage', 'locationMessage', 'contactMessage',
   'interactiveMessage'
 ]
-
 function buildDefaultCtx(m) {
   return {
     participant: WA_PARTICIPANT,
@@ -50,6 +39,8 @@ function processSendMessage(content, defaultCtx) {
   if (!content || typeof content !== 'object') return content
   if (content.delete || content.edit || content.react) return content
 
+  if (!isFakeQEnabled()) return content
+
   return {
     ...content,
     contextInfo: normalizeCtx(content.contextInfo, defaultCtx)
@@ -58,6 +49,8 @@ function processSendMessage(content, defaultCtx) {
 
 function processRelayMessage(content, defaultCtx) {
   if (!content || typeof content !== 'object') return content
+
+  if (!isFakeQEnabled()) return content
 
   const inner =
     content.viewOnceMessage?.message ||
@@ -82,6 +75,7 @@ function processRelayMessage(content, defaultCtx) {
 
 function stripQuotedOpts(opts) {
   if (!opts) return opts
+  if (!isFakeQEnabled()) return opts
   const { quoted, ...rest } = opts
   return rest
 }
@@ -89,8 +83,12 @@ function stripQuotedOpts(opts) {
 function patchSockMethods(feb, defaultCtx) {
   return new Proxy(feb, {
     get(target, prop) {
+
       if (prop === 'sendMessage') {
         return async (jid, content, opts) => {
+          if (!isFakeQEnabled()) {
+            return target.sendMessage(jid, content, opts)
+          }
           content = processSendMessage(content, defaultCtx)
           opts = stripQuotedOpts(opts)
           return target.sendMessage(jid, content, opts)
@@ -99,6 +97,9 @@ function patchSockMethods(feb, defaultCtx) {
 
       if (prop === 'relayMessage') {
         return async (jid, content, opts) => {
+          if (!isFakeQEnabled()) {
+            return target.relayMessage(jid, content, opts)
+          }
           content = processRelayMessage(content, defaultCtx)
           return target.relayMessage(jid, content, opts)
         }
@@ -109,17 +110,23 @@ function patchSockMethods(feb, defaultCtx) {
   })
 }
 
-function patchMReply(m, patchedFeb, defaultCtx) {
+function patchMReply(m, feb, patchedFeb, defaultCtx) {
   m.reply = (text, opts = {}) => {
+
+    if (!isFakeQEnabled()) {
+      return feb.sendMessage(m.chat, { text }, { quoted: m.raw, ...opts })
+    }
+
     const content = processSendMessage({ text, ...opts }, defaultCtx)
     return patchedFeb.sendMessage(m.chat, content)
   }
+
   return m
 }
 
 export function patchFeb(feb, m) {
   const defaultCtx = buildDefaultCtx(m)
   const patchedFeb = patchSockMethods(feb, defaultCtx)
-  patchMReply(m, patchedFeb, defaultCtx)
+  patchMReply(m, feb, patchedFeb, defaultCtx)
   return patchedFeb
 }
