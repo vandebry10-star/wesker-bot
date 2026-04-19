@@ -80,15 +80,9 @@ export default {
 
     await feb.sendMessage(chat, {
       image  : buffer,
-      caption: caption.trim(),
-      contextInfo: {
-        externalAdReply: {
-          title    : 'system monitor',
-          body     : `cpu ${cpuLoad}% — ram ${ramLoad}%`,
-          mediaType: 1
-        }
-      }
+      caption: caption.trim()
+    },
+                          {
     }, { quoted: raw })
   }
 }
-
