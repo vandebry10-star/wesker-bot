@@ -67,36 +67,32 @@ export default {
     }, 1500)
 
     try {
-      const data    = await runSpeedtest()
-      clearInterval(interval)
+  const data = await runSpeedtest()
+  clearInterval(interval)
 
-      const LINK    = data.result.url
-      const imgRes  = await fetch(LINK + '.png')
-      const buffer  = Buffer.from(await imgRes.arrayBuffer())
-      const caption = formatText(data)
+  const LINK   = data.result.url
+  const imgRes = await fetch(LINK + '.png')
+  const buffer = Buffer.from(await imgRes.arrayBuffer())
+  const caption = formatText(data)
 
-      await feb.sendMessage(chat, { delete: key })
+  await feb.sendMessage(
+    m.chat,
+    {
+      image: buffer,
+      caption: caption
+    },
+    {
+      quoted: m.raw
+    }
+  )
 
-      await feb.sendMessage(chat, {
-        image  : buffer,
-        caption: caption,
-        contextInfo: {
-          externalAdReply: {
-            title      : 'powered by Ookla',
-            body       : 'speedtest result',
-            mediaType  : 1,
-            sourceUrl  : LINK
-          }
-        }
-      }, { quoted: m.raw })
+} catch (e) {
+  clearInterval(interval)
 
-    } catch {
-      clearInterval(interval)
-      await feb.sendMessage(chat, {
-        text: `${getProgressBar(100)}\n_ERROR: Connection timed out or failed._`,
-        edit: key
-      })
+  await feb.sendMessage(m.chat, {
+    text: `${getProgressBar(100)}\n_ERROR: Connection timed out or failed._`,
+    edit: key
+  })
     }
   }
 }
-
