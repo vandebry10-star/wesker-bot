@@ -120,14 +120,9 @@ export default {
     if (chartBuffer) {
       await feb.sendMessage(chat, {
         image  : chartBuffer,
-        caption: caption,
-        contextInfo: {
-          externalAdReply: {
-            title    : 'spesifikasi',
-            body     : 'live server monitor',
-            mediaType: 1
-          }
-        }
+        caption : caption
+        },
+                            {
       }, { quoted: raw })
     } else {
       await feb.sendMessage(chat, { text: caption }, { quoted: raw })
