@@ -250,26 +250,26 @@ export async function handleMessageUpsert(feb, messages) {
 
       /* ─ lock ─ */
       if (isLocked()) {
-  const botJid    = jidNormalizedUser(feb.user?.id)
-  const botLid    = jidNormalizedUser(feb.user?.lid || '')
-  const botNumber = botJid.split('@')[0].split(':')[0]
-  const mentions  = m.mentions || []
-  const textMentions = [...(safeText.matchAll(/@(\d+)/g))].map(r => r[1])
+        const botJid    = jidNormalizedUser(feb.user?.id)
+        const botLid    = jidNormalizedUser(feb.user?.lid || '')
+        const botNumber = botJid.split('@')[0].split(':')[0]
+        const mentions  = m.mentions || []
+        const textMentions = [...(safeText.matchAll(/@(\d+)/g))].map(r => r[1])
 
-  const isMentioned =
-    mentions.some(j => jidNormalizedUser(j) === botJid || jidNormalizedUser(j) === botLid) ||
-    textMentions.includes(botNumber)
+        const isMentioned =
+          mentions.some(j => jidNormalizedUser(j) === botJid || jidNormalizedUser(j) === botLid) ||
+          textMentions.includes(botNumber)
 
-  const t = safeText.trim().toLowerCase()
-  const isLockCmd = (t.startsWith('lock') || t.startsWith('unlock')) && isMentioned
+        const t = safeText.trim().toLowerCase()
+        const isLockCmd = (t.startsWith('lock') || t.startsWith('unlock')) && isMentioned
 
-  if (!isLockCmd) continue
+        if (!isLockCmd) continue
       }
 
       /* ─ flow ─ */
       if (safeText && chat.endsWith('@g.us')) {
         const flowRole = getRole(sender)
-        const canFlow  = flowRole === 'owner' || flowRole === 'owner'
+        const canFlow  = flowRole === 'owner'
 
         if (canFlow) {
           if (hasSession(sender, chat)) {
@@ -289,7 +289,8 @@ export async function handleMessageUpsert(feb, messages) {
       const prefixes = feb.prefixManager.getAll()
       let extracted  = extractCommand(safeText, prefixes)
 
-      if (!extracted) {
+      // fallback no-prefix — hanya aktif kalau prefixes kosong (prefix off)
+      if (!extracted && prefixes.length === 0) {
         const text = typeof safeText === 'string' ? safeText.trim() : ''
         if (!text) continue
 
