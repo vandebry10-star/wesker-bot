@@ -189,7 +189,11 @@ Tipe button yang didukung:
 - `single_select` untuk dropdown list
 - `limited_time_offer` untuk label dengan countdown expired
 
-# plugin example button bisa cek `plugins/beton.js`
+## plugin example button bisa cek `plugins/beton.js`
+
+<p align="center">
+  <img src="https://cloud.yardansh.com/TRnio5.jpg" />
+</p>
 
 ---
 
@@ -303,6 +307,9 @@ Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `st
 
 ## Credit
 
-built by **febry wesker**
+built by **febry wesker** on github
+<p align="center">
+  <img src="https://cloud.yardansh.com/Exk1TM.jpg" />
+</p>
 
 © 2026 all rights reserved. do not resell or redistribute without permission.
