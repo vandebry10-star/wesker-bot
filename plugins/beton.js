@@ -2,7 +2,8 @@
  * wesker-md  ╌  febry wesker
  * ════════════════════════════════════════════ */
 
-import { sendNativeFlow } from '../system/helper/nativeflow.js'
+import {sendNativeFlow } from '../system/helper/nativeflow.js'
+import { febCtx } from '../system/helper/custom-ctx.js'
 
 export default {
   name: 'beton',
@@ -53,7 +54,8 @@ export default {
                 }
               ]
             }
-          ]
+          ],
+icon: "DEFAULT"
         })
       }
     ]
@@ -62,6 +64,7 @@ export default {
       viewOnceMessage: {
         message: {
           interactiveMessage: {
+            contextInfo: febCtx(m),
             body: {
               text:
                    `lid: ${sender.split('@')[0]}\n` +
