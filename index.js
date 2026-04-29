@@ -39,7 +39,6 @@ import { handleMessageUpsert }   from './system/handler/message-upsert.js'
 import { createPresenceHandler } from './system/handler/presence-update.js'
 import { CoreListener }          from './system/listener/core-listener.js'
 import { BOT_INFO }              from './system/helper/index.js'
-import { loadFlows }             from './system/flow/flow-loader.js'
 import { addUser }               from './system/helper/access.js'
 
 setDebug(process.env.DEBUG === '1')
@@ -310,6 +309,5 @@ nl()
 ;(async () => {
   await pluginManager.loadPlugins()
   pluginManager.watchPlugins()
-  await loadFlows()
   await startWesker()
 })()
