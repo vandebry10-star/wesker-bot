@@ -24,12 +24,6 @@ import { isDebug }            from '../helper/debug.js'
 import { patchFeb }           from '../helper/feb-patch.js'
 import { getReactionCmdDB }   from '../helper/reaction-cmd.js'
 import { isFakeQEnabled }     from '../helper/fakeq.js'
-import {
-  hasSession,
-  handleFlowInput,
-  getFlowByTrigger,
-  startFlow
-} from '../flow/flow-manager.js'
 
 export async function handleMessageUpsert(feb, messages) {
   for (const msg of messages) {
@@ -76,11 +70,6 @@ export async function handleMessageUpsert(feb, messages) {
           const command = id.split(/\s+/)[0]
           const args    = id.split(/\s+/).slice(1)
           const plugin  = feb.pluginManager.getPlugin(command)
-
-          if (!plugin && hasSession(sender, chat)) {
-            await handleFlowInput(feb, m, id)
-            continue
-          }
 
           if (plugin) {
             m.text = id
@@ -264,25 +253,6 @@ export async function handleMessageUpsert(feb, messages) {
         const isLockCmd = (t.startsWith('lock') || t.startsWith('unlock')) && isMentioned
 
         if (!isLockCmd) continue
-      }
-
-      /* ─ flow ─ */
-      if (safeText && chat.endsWith('@g.us')) {
-        const flowRole = getRole(sender)
-        const canFlow  = flowRole === 'owner'
-
-        if (canFlow) {
-          if (hasSession(sender, chat)) {
-            await handleFlowInput(feb, m, null)
-            continue
-          }
-
-          const flow = getFlowByTrigger(safeText)
-          if (flow) {
-            await startFlow(feb, m, flow)
-            continue
-          }
-        }
       }
 
       /* ─ command dispatch ─ */
