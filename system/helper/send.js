@@ -26,6 +26,10 @@
  *   sendText(feb, m, 'halo!')
  *
  * ════════════════════════════════════════════ */
+import {
+  imageToSticker,
+  videoToSticker
+} from './sticker.js'
 
 // ── internal: normalize quoted ────────────────
 
@@ -65,25 +69,31 @@ export function sendVideo(feb, m, video, caption = '', opts = {}) {
   )
 }
 
-export function sendAudio(feb, m, audio, opts = {}) {
-  const { quoted, ptt = false, mimetype = 'audio/mpeg' } = opts
-  const src = typeof audio === 'string' ? { url: audio } : audio
+export async function sendSticker(feb, m, sticker, opts = {}) {
+
+  const {
+    quoted,
+    crop = false,
+    type = 'image'
+  } = opts
+
+  let webp
+
+  if (type === 'sticker') {
+    webp = sticker
+  }
+
+  else if (type === 'video') {
+    webp = await videoToSticker(sticker, 'mp4', crop)
+  }
+
+  else {
+    webp = await imageToSticker(sticker, crop)
+  }
+
   return feb.sendMessage(
     m.chat,
-    { audio: src, ptt, mimetype },
-    { quoted: normalizeQuoted(quoted) || m.raw }
-  )
-}
-
-export function sendVoice(feb, m, audio, opts = {}) {
-  return sendAudio(feb, m, audio, { ...opts, ptt: true, mimetype: 'audio/ogg; codecs=opus' })
-}
-
-export function sendSticker(feb, m, sticker, opts = {}) {
-  const { quoted } = opts
-  return feb.sendMessage(
-    m.chat,
-    { sticker },
+    { sticker: webp },
     { quoted: normalizeQuoted(quoted) || m.raw }
   )
 }

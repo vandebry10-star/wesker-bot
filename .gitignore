@@ -1,0 +1,8 @@
+node_modules/
+package-lock.json
+auth_info_baileys/
+auth/
+*.session
+.env
+system/cache/*.json
+!system/cache/.keep
