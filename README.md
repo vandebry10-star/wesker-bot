@@ -7,9 +7,12 @@
 </p>
 
 ---
+
 ## Requirements
 
 - Node.js v21+ (v22 recommended)
+- FFmpeg (untuk convert video ke sticker)
+- Sharp (untuk convert gambar ke sticker)
 - PM2 (opsional, untuk process management)
 - support vps dan panel
 
@@ -34,19 +37,101 @@ Bot ini default private, hanya bisa diakses oleh nomor yang mendapatkan role. Gu
 
 ```
 wesker-bot/
-├── index.js              entry point utama
-├── launcher.js           process wrapper dengan auto-restart
-├── plugins/              tempat semua plugin
+├── index.js                         entry point utama
+├── launcher.js                      process wrapper dengan auto-restart
+├── package.json
+├── plugins/
+│   ├── dev/
+│   │   ├── debug.js                 toggle debug log
+│   │   ├── e.js                     eval javascript
+│   │   ├── ev.js                    eval dengan output verbose
+│   │   ├── im.js                    inspect raw message object
+│   │   ├── plugin.js                plugin manager (install, reload, check, dll)
+│   │   ├── reload.js                reload semua plugin + diff snapshot
+│   │   └── shell.js                 jalankan shell command
+│   ├── example/
+│   │   ├── beton.js                 contoh penggunaan nativeflow button
+│   │   ├── esce.js                  contoh interactive message dengan header image
+│   │   └── master.js                contoh lengkap semua fitur plugin (full komen)
+│   ├── info/
+│   │   ├── botinfo.js               status bot dan server realtime
+│   │   ├── getid.js                 cek JID sender dan chat
+│   │   ├── health.js                monitor cpu dan ram realtime
+│   │   ├── info.js                  info server dan memori
+│   │   ├── ping.js                  cek latency queue, handler, dan network
+│   │   ├── runtime.js               uptime bot
+│   │   ├── speedtest.js             cek kecepatan internet server
+│   │   └── spek.js                  spesifikasi server lengkap dengan chart
+│   ├── menu/
+│   │   ├── allmenu.js               tampilkan semua list menu
+│   │   ├── help.js                  daftar command
+│   │   ├── hidden.js                lihat command yang disembunyikan
+│   │   └── menu.js                  tampilkan list kategori menu
+│   ├── system/
+│   │   ├── access.js                manage role user
+│   │   ├── fakeq.js                 toggle fake quoted wa verified
+│   │   ├── lock.js                  lock/unlock bot global
+│   │   ├── prefix.js                ganti prefix bot runtime
+│   │   ├── rcmd.js                  reaction command manager
+│   │   └── unaccess.js              lepas akses diri sendiri
+│   └── tools/
+│       ├── afk.js                   set status away from keyboard
+│       ├── lid.js                   ambil LID target
+│       ├── sticker.js               convert gambar/video ke sticker
+│       └── up.js                    upload media ke tmpfiles/uguu/catbox
 └── system/
-    ├── handler/          message handler & presence
-    ├── helper/           utility functions
-    ├── listener/         event classifier & logger
-    ├── manager/          plugin, prefix, reaction, user manager
-    ├── store/            in-memory message store
-    └── flow/             multi-step conversation flow
+    ├── handler/
+    │   ├── message-upsert.js        inti handler semua pesan masuk
+    │   └── presence-update.js       handler presence event
+    ├── helper/
+    │   ├── access.js                role-based access control berbasis JSON
+    │   ├── afk-store.js             in-memory store untuk status AFK
+    │   ├── cache/
+    │   │   └── debug.json
+    │   ├── config-cache.js          persistent config cache berbasis JSON
+    │   ├── custom-ctx.js            builder context info untuk interactive message
+    │   ├── debug.js                 debug logger toggle
+    │   ├── download-media.js        download media dari message Baileys
+    │   ├── fakeq.js                 state manager untuk fitur fakeq
+    │   ├── feb-patch.js             patch socket untuk inject fake quoted contextInfo
+    │   ├── index.js                 BOT_INFO, sleep, formatTime, formatSeconds
+    │   ├── lock.js                  state manager global lock
+    │   ├── nativeflow.js            helper kirim interactiveMessage / nativeFlowMessage
+    │   ├── quoted-text.js           kirim dan edit pesan dengan custom quoted context
+    │   ├── reaction-cmd.js          mapping emoji ke command (rcmd)
+    │   ├── send.js                  shorthand semua tipe pengiriman pesan
+    │   ├── sticker.js               convert image/video ke webp sticker
+    │   ├── util.js                  utility umum
+    │   ├── wesker-album.js          kirim albumMessage dengan delay antar gambar
+    │   └── wesker-message.js        universal sender (text, image, document, dll)
+    ├── listener/
+    │   ├── core-listener.js         kelola semua event Baileys dan teruskan ke classifier
+    │   ├── event-classifier.js      kategorisasi tipe event sebelum diproses handler
+    │   └── event-logger.js          logger untuk event masuk
+    ├── manager/
+    │   ├── index.js                 export semua manager
+    │   ├── plugin.js                plugin manager dengan hot-reload
+    │   ├── prefix.js                manage prefix command runtime
+    │   ├── reaction.js              command yang ditrigger dari reaction emoji
+    │   └── user.js                  user state manager
+    ├── store/
+    │   └── message-store.js         in-memory message store berdasarkan ID
+    ├── cache/
+    │   ├── access.json              daftar role user
+    │   ├── fakeq.json               state fakeq
+    │   ├── lock.json                state global lock
+    │   ├── reaction-cmd.json        mapping rcmd
+    │   └── listener-logs/
+    │       ├── groups.json
+    │       ├── messages.json
+    │       └── reactions.json
+    ├── patch-message-before-send.js
+    └── serialize.js                 serializer pesan masuk
 ```
+
 ---
-# Access Control
+
+## Access Control
 
 Role system berbasis file JSON di `system/cache/access.json`.
 
@@ -64,11 +149,10 @@ unaccess me                lepas akses diri sendiri (user)
 Contoh isi `access.json` yang benar
 ```json
 $ cat system/cache/access.json
-─────────────────
 {
-  "628xxxxxx:1@s.whatsapp.net": "owner", // ini nomor bot otomatis setelah pairing
-  "115xxxxxxxxxxx@lid": "owner", // ini contoh format setelah add access yang benar
-  "239xxxxxxxxxxx@lid": "user" // dan ini untuk role user
+  "628xxxxxx:1@s.whatsapp.net": "owner",
+  "115xxxxxxxxxxx@lid": "owner",
+  "239xxxxxxxxxxx@lid": "user"
 }
 ```
 
@@ -82,6 +166,8 @@ Isi `message-upsert.js` adalah inti dari seluruh bot. Semua pesan yang masuk dip
 
 Kumpulan utility yang dipakai oleh handler dan plugin. Yang paling sering dipakai:
 
+- `send.js` shorthand semua tipe pesan, sudah di-inject ke `m` jadi bisa langsung `m.sendText()`, `m.sendSticker()`, dll
+- `sticker.js` convert buffer gambar ke webp via sharp, dan video ke webp animated via ffmpeg
 - `nativeflow.js` untuk bikin interactive message (button, sheet, copy link, dll)
 - `quoted-text.js` untuk kirim dan edit pesan dengan custom quoted context
 - `wesker-album.js` untuk kirim albumMessage, ada delay saat mengirim gambar mencegah spam
@@ -102,10 +188,6 @@ Kumpulan utility yang dipakai oleh handler dan plugin. Yang paling sering dipaka
 
 In-memory message store yang menyimpan pesan berdasarkan ID. Dibutuhkan untuk fitur seperti quick reply, reaction command, dan akses ke pesan lama dari dalam plugin.
 
-### system/flow
-
-Multi-step conversation flow. Kamu bisa bikin wizard yang berjalan step-by-step dalam satu sesi percakapan. Lihat `system/flows/example-flow.js` untuk contoh implementasi.
-
 ---
 
 ## Plugin Manager
@@ -121,7 +203,7 @@ export default {
   category: ['tools'],
 
   async run({ m, args, react, feb, chat, sender, role }) {
-    await react('✅')
+    await react('ok')
     m.reply('hello')
   }
 }
@@ -140,7 +222,33 @@ Context yang tersedia di `run()`:
 | `react` | fungsi react ke pesan |
 | `q` | quoted message shorthand |
 | `raw` | raw WA message |
+| `wesker` | instance PluginManager |
 | `other.storeMessage` | akses ke message store |
+
+Send helpers yang sudah di-inject ke `m`:
+
+| method | fungsi |
+|--------|--------|
+| `m.reply(text)` | balas pesan dengan teks |
+| `m.sendText(text, opts)` | kirim teks |
+| `m.sendImage(buffer/url, caption, opts)` | kirim gambar |
+| `m.sendVideo(buffer/url, caption, opts)` | kirim video |
+| `m.sendSticker(buffer, opts)` | kirim sticker dari buffer |
+| `m.sendDocument(buffer, fileName, opts)` | kirim dokumen |
+| `m.sendLocation(lat, lng, name, opts)` | kirim lokasi |
+| `m.sendContact(number, name, opts)` | kirim kontak |
+| `m.sendButtons(body, footer, buttons, opts)` | kirim quick reply buttons |
+| `m.forwardMsg(rawMsg)` | forward pesan |
+| `m.deleteMsg(targetKey)` | hapus pesan |
+
+Opsi `sendSticker`:
+
+```js
+m.sendSticker(buffer, { type: 'image' })   // dari gambar (default)
+m.sendSticker(buffer, { type: 'video' })   // dari video, jadi animated webp
+m.sendSticker(buffer, { type: 'sticker' }) // buffer webp langsung kirim
+m.sendSticker(buffer, { crop: true })      // crop tengah jadi square
+```
 
 ---
 
@@ -149,7 +257,7 @@ Context yang tersedia di `run()`:
 Helper `nativeflow.js` mempermudah pembuatan interactive message WhatsApp tanpa harus nulis boilerplate `additionalNodes` setiap saat.
 
 ```js
-import { sendNativeFlow } from '../system/helper/nativeflow.js'
+import { sendNativeFlow } from '../../system/helper/nativeflow.js'
 
 await sendNativeFlow(feb, chat, {
   viewOnceMessage: {
@@ -189,7 +297,7 @@ Tipe button yang didukung:
 - `single_select` untuk dropdown list
 - `limited_time_offer` untuk label dengan countdown expired
 
-## plugin example button bisa cek `plugins/beton.js`
+## plugin example button bisa cek `plugins/example/beton.js`, contoh lengkap semua fitur plugin ada di `plugins/example/master.js`
 
 <p align="center">
   <img src="https://cloud.yardansh.com/TRnio5.jpg" />
@@ -240,37 +348,6 @@ State-nya persistent via `system/cache/fakeq.json`.
 
 ---
 
-## Multi-step Flow
-
-Untuk skenario yang butuh beberapa langkah input dari user, ada flow system. Kamu definisikan steps, bot jalan step by step per pesan masuk dari user yang sama.
-
-```js
-export default {
-  id     : 'example-flow',
-  trigger: 'startflow',
-
-  steps: [
-    async function (ctx) {
-      if (!ctx.get('_s0')) {
-        ctx.set('_s0', true)
-        await ctx.reply('step 1/3\nsiapa namamu?')
-        return
-      }
-      const nama = ctx.text.trim()
-      ctx.set('nama', nama)
-      ctx.next()
-      await ctx.reply(`oke ${nama}!\nstep 2/3\nberapa umurmu?`)
-    },
-
-    // step selanjutnya...
-  ]
-}
-```
-
-Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `stopflow`, sesi langsung dihentikan.
-
----
-
 ## Plugins Bawaan
 
 | plugin | command | fungsi |
@@ -285,7 +362,7 @@ Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `st
 | getid | `gid` | cek JID sender dan chat |
 | lid | `lid` | ambil LID target |
 | im | `im` | inspect raw message object |
-| sticker | `sticker` | convert gambar/video ke sticker |
+| sticker | `sticker` `stiker` `stk` | convert gambar/video ke sticker |
 | up | `up` | upload media ke tmpfiles, uguu, catbox |
 | lock | `lock` | lock/unlock bot global |
 | fakeq | `fakeq` | toggle fake quoted wa verified |
@@ -301,7 +378,8 @@ Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `st
 | help | `help` | daftar command |
 | menu | `menu` | menampilkan list kategori |
 | allmenu | `allmenu` | menampilkan semua list menu yang tersedia |
-| beton | `allmenu` | menampilkan semua list button |
+| beton | `beton` `button` | contoh semua tipe button nativeflow |
+| esce | `sc` `esce` | contoh interactive message dengan header image |
 
 ---
 
