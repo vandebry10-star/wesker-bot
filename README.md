@@ -345,6 +345,9 @@ const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
 ```
 
 State-nya persistent via `system/cache/fakeq.json`.
+<p align="center">
+  <img src="https://cloud.yardansh.com/xAN2yf.jpg" />
+</p>
 
 ---
 
