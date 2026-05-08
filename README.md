@@ -229,9 +229,7 @@ fakeq on        aktifkan
 fakeq off       matikan
 ```
 
-Cara kerjanya: setiap pesan keluar di-intercept oleh `feb-patch.js` yang meng-inject `contextInfo` dengan `participant: '0@s.whatsapp.net'`. Kalau `fakeq off`, patch dilewati dan bot kirim
-
-</div> pesan normal.
+Cara kerjanya: setiap pesan keluar di-intercept oleh `feb-patch.js` yang meng-inject `contextInfo` dengan `participant: '0@s.whatsapp.net'`. Kalau `fakeq off`, patch dilewati dan bot kirim pesan normal.
 
 ```js
 // di message-upsert.js
@@ -241,48 +239,77 @@ const patchedFeb = isFakeQEnabled() ? patchFeb(feb, m) : feb
 State-nya persistent via `system/cache/fakeq.json`.
 
 ---
+
+## Multi-step Flow
+
+Untuk skenario yang butuh beberapa langkah input dari user, ada flow system. Kamu definisikan steps, bot jalan step by step per pesan masuk dari user yang sama.
+
+```js
+export default {
+  id     : 'example-flow',
+  trigger: 'startflow',
+
+  steps: [
+    async function (ctx) {
+      if (!ctx.get('_s0')) {
+        ctx.set('_s0', true)
+        await ctx.reply('step 1/3\nsiapa namamu?')
+        return
+      }
+      const nama = ctx.text.trim()
+      ctx.set('nama', nama)
+      ctx.next()
+      await ctx.reply(`oke ${nama}!\nstep 2/3\nberapa umurmu?`)
+    },
+
+    // step selanjutnya...
+  ]
+}
+```
+
+Setiap flow punya session per user dengan timeout 2 menit. Kalau user ngetik `stopflow`, sesi langsung dihentikan.
+
+---
+
 ## Plugins Bawaan
 
 | plugin | command | fungsi |
 |--------|---------|--------|
-| access | `access` | manage role user |
-| afk | `afk` | set status away from keyboard |
-| allmenu | `allmenu` | menampilkan semua list menu |
-| beton | `beton` | contoh penggunaan native flow button |
-| botinfo | `botinfo` | status bot dan server realtime |
-| debug | `debug` | toggle debug log runtime |
-| e / ev | `e` `ev` | eval JavaScript langsung dari chat |
-| esce | `sc` `esce` | kirim pesan dengan interactive button |
-| fakeq | `fakeq` | toggle fake quoted wa verified |
-| getid | `gid` | cek JID sender dan chat |
-| health | `health` | monitor cpu dan ram realtime |
-| help | `help` | daftar command |
-| hidden | `hidden` | lihat command yang disembunyikan |
-| im | `im` | inspect raw message object |
-| info | `info` | info server dan memori |
-| lid | `lid` | ambil LID target |
-| lock | `lock` | lock/unlock bot global |
-| menu | `menu` | menampilkan list kategori |
 | ping | `ping` | cek latency queue, handler, dan network |
-| plugin | `plugin` | plugin manager (install, reload, list, check) |
-| prefix | `prefix` | atur prefix bot |
-| rcmd | `rcmd` | reaction command manager |
-| reload | `reload` | reload semua plugin + diff snapshot |
 | runtime | `rt` | uptime bot |
-| shell | `s` | eksekusi perintah shell langsung |
-| speedtest | `speed` | cek kecepatan internet server |
+| info | `info` | info server dan memori |
+| botinfo | `botinfo` | status bot dan server realtime |
 | spek | `spek` | spesifikasi server lengkap dengan chart |
+| health | `health` | monitor cpu dan ram realtime |
+| speedtest | `speed` | cek kecepatan internet server |
+| getid | `gid` | cek JID sender dan chat |
+| lid | `lid` | ambil LID target |
+| im | `im` | inspect raw message object |
 | sticker | `sticker` | convert gambar/video ke sticker |
-| unaccess | `unaccess` | lepas akses diri sendiri |
 | up | `up` | upload media ke tmpfiles, uguu, catbox |
+| lock | `lock` | lock/unlock bot global |
+| fakeq | `fakeq` | toggle fake quoted wa verified |
+| debug | `debug` | toggle debug log runtime |
+| reload | `reload` | reload semua plugin + diff snapshot |
+| rcmd | `rcmd` | reaction command manager |
+| afk | `afk` | set status away from keyboard |
+| hidden | `hidden` | lihat command yang disembunyikan |
+| access | `access` | manage role user |
+| unaccess | `unaccess` | lepas akses diri sendiri |
+| e / ev | `e` `ev` | eval JavaScript langsung dari chat |
+| plugin | `plugin` | plugin manager (install, reload, list, check) |
+| help | `help` | daftar command |
+| menu | `menu` | menampilkan list kategori |
+| allmenu | `allmenu` | menampilkan semua list menu yang tersedia |
+| beton | `allmenu` | menampilkan semua list button |
 
 ---
 
-<div align="center">
+## Credit
 
-built by [febry wesker](https://github.com/vandebry10-star)
+built by **febry wesker** on github
+<p align="center">
+  <img src="https://cloud.yardansh.com/Exk1TM.jpg" />
+</p>
 
-<img src="https://cloud.yardansh.com/Exk1TM.jpg" width="100%" />
-
-© 2026 febry wesker · all rights reserved · do not resell or redistribute without permission
-
+© 2026 all rights reserved. do not resell or redistribute without permission.
