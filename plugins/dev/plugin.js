@@ -51,12 +51,29 @@ function getPluginFiles(dir, base = '') {
 
 function findPluginByName(name) {
 
-  const files = getPluginFiles(PLUGIN_DIR)
+  if (!name) return []
 
-  const normalized = normalizeName(name)
+  const files =
+    getPluginFiles(PLUGIN_DIR)
 
+  const normalized =
+    normalizeName(name)
+      .replace(/\\/g, '/')
+
+  // kalau ada slash = anggap path
+  if (normalized.includes('/')) {
+
+    return files.filter(f =>
+      f.replace(/\\/g, '/')
+        === normalized
+    )
+
+  }
+
+  // fallback basename
   return files.filter(f =>
-    path.basename(f) === normalized
+    path.basename(f)
+      === normalized
   )
 }
 
@@ -334,6 +351,22 @@ export default {
   command: ['plugin'],
   category: ['dev'],
   hidden: true,
+  description:
+`plugin manager
+
+plugin list          // melihat list plugin
+plugin get <file>    // send file plugin
+plugin get <file> -t // send teks plugin
+plugin check <file>  // check/validasi plugin
+
+plugin -i   // install plugin
+plugin -ir  // install & replace plugin
+plugin -iv  // install & validasi plugin (lebih ketat dari -ir)
+
+plugin on <command>
+plugin off <command>
+
+plugin -d <file>     // delete plugin`,
 
   async run(ctx) {
 
@@ -351,19 +384,19 @@ export default {
 
       return m.sendText(`plugin manager
 
-plugin list
-plugin get <file>
-plugin get <file> -t
-plugin check <file>
+plugin list          // melihat list plugin
+plugin get <file>    // send file plugin
+plugin get <file> -t // send teks plugin
+plugin check <file>  // check/validasi plugin
 
-plugin -i
-plugin -ir
-plugin -iv
+plugin -i   // install plugin
+plugin -ir  // install & replace plugin
+plugin -iv  // install & validasi plugin (lebih ketat dari -ir)
 
 plugin on <command>
 plugin off <command>
 
-plugin -d <file>`)
+plugin -d <file>     // delete plugin`)
 
     }
 
@@ -800,4 +833,4 @@ ${relativePath}`
       'aksi tidak dikenal'
     )
   }
-}
+          }
