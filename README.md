@@ -393,4 +393,6 @@ built by **febry wesker** on github
   <img src="https://cloud.yardansh.com/Exk1TM.jpg" />
 </p>
 
+https://chat.whatsapp.com/Ed43CaXjSb3KzD6EkZyH1q
+
 © 2026 all rights reserved. do not resell or redistribute without permission.
