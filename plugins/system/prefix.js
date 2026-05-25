@@ -10,11 +10,11 @@ export default {
   category   : ['dev'],
   hidden     : true,
   description:
-    'prefix         — lihat status & list\n' +
-    'prefix on      — aktifkan prefix\n' +
-    'prefix off     — matikan prefix (no-prefix mode)\n' +
-    'prefix add <p> — tambah prefix\n' +
-    'prefix del <p> — hapus prefix (support index)',
+    'prefix          lihat status & list\n' +
+    'prefix on       aktifkan prefix\n' +
+    'prefix off      matikan prefix (no-prefix mode)\n' +
+    'prefix add <p>  tambah prefix\n' +
+    'prefix del <p>  hapus prefix (support index)',
 
   async run({ m, args, feb }) {
     const pm = feb.prefixManager

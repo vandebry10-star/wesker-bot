@@ -39,8 +39,8 @@ Base ini dirancang untuk dev pribadi & belajar `interactiveMessage`. Kalau kamu 
 
 ### Owner punya akses shell + eval di VPS-mu
 
-- `s <cmd>` (alias `shell`) jalankan perintah shell apapun di host bot — termasuk `rm`, akses file sistem, network call, dll.
-- `e <code>` dan `ev <code>` jalankan JavaScript apapun pakai `AsyncFunction` — bisa load module Node, baca env, modifikasi state bot live.
+- `s <cmd>` (alias `shell`) jalankan perintah shell apapun di host bot  termasuk `rm`, akses file sistem, network call, dll.
+- `e <code>` dan `ev <code>` jalankan JavaScript apapun pakai `AsyncFunction`  bisa load module Node, baca env, modifikasi state bot live.
 - Plugin `plugin` bisa install / reload plugin dari URL atau file.
 
 Artinya: **siapapun yang punya role `owner` di `access.json` punya RCE ke VPS-mu.** Pastikan:
@@ -51,19 +51,19 @@ Artinya: **siapapun yang punya role `owner` di `access.json` punya RCE ke VPS-mu
 
 Kalau kamu mau publish bot ke umum, **disable shell/eval/plugin manager** dengan menghapus file `plugins/owner/shell.js`, `plugins/owner/eval.js`, `plugins/owner/eval-anysnc.js`, `plugins/owner/plugin.js`.
 
-### Fake Quoted (fakeq) — disclaimer
+### Fake Quoted (fakeq)  disclaimer
 
 Fitur `fakeq` bikin pesan bot terlihat seperti dikutip dari akun WhatsApp resmi (centang biru / WA Business verified). Ini efek visual aja, **tapi gampang disalahgunakan** untuk impersonate brand / lembaga / bank dalam scam dan phishing.
 
-Pemakaian fitur ini sepenuhnya tanggung jawab user. Penulis tidak bertanggung jawab atas penyalahgunaan. Defaultnya `on` untuk demo — kalau ragu, `fakeq off`.
+Pemakaian fitur ini sepenuhnya tanggung jawab user. Penulis tidak bertanggung jawab atas penyalahgunaan. Defaultnya `on` untuk demo  kalau ragu, `fakeq off`.
 
-### Dev workflow — restart kalau habis edit banyak plugin
+### Dev workflow  restart kalau habis edit banyak plugin
 
-Hot-reload pakai `import('?update=' + Date.now())` — Node ESM tidak punya cara unload modul, jadi tiap reload menambah modul baru di memori. Untuk sesi dev panjang yang banyak edit plugin, restart bot via `reload` atau pm2 restart sesekali biar RAM nggak menumpuk.
+Hot-reload pakai `import('?update=' + Date.now())`  Node ESM tidak punya cara unload modul, jadi tiap reload menambah modul baru di memori. Untuk sesi dev panjang yang banyak edit plugin, restart bot via `reload` atau pm2 restart sesekali biar RAM nggak menumpuk.
 
 ### File sensitif di `system/cache/`
 
-`access.json` punya JID owner kamu — **jangan commit ke repo public**. Sudah ada di `.gitignore`, tapi pastikan tidak ke-track dari sejarah lama (`git log -- system/cache/access.json`).
+`access.json` punya JID owner kamu  **jangan commit ke repo public**. Sudah ada di `.gitignore`, tapi pastikan tidak ke-track dari sejarah lama (`git log -- system/cache/access.json`).
 
 ---
 
@@ -174,7 +174,7 @@ access user (reply)        add role user
 unaccess me                lepas akses diri sendiri (user)
 ```
 
-## Saat pertama konek, bot otomatis mendaftarkan nomor bot sebagai owner — hanya kalau `access.json` masih kosong.
+## Saat pertama konek, bot otomatis mendaftarkan nomor bot sebagai owner  hanya kalau `access.json` masih kosong.
 
 Contoh isi `access.json` yang benar
 ```json
@@ -425,4 +425,4 @@ built by **febry wesker** on github
 
 https://chat.whatsapp.com/Ed43CaXjSb3KzD6EkZyH1q
 
-Released under the MIT License — see `LICENSE` file. Bebas pakai, modifikasi, redistribute.
+Released under the MIT License  see `LICENSE` file. Bebas pakai, modifikasi, redistribute.

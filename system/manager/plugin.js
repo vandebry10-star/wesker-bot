@@ -55,7 +55,7 @@ function checkAccess(plugin, role) {
   return true
 }
 
-// scan rekursif — support flat plugins/ dan subfolder plugins/dev/, plugins/tools/, dll
+// scan rekursif  support flat plugins/ dan subfolder plugins/dev/, plugins/tools/, dll
 function scanPlugins(dir) {
   const result = []
   if (!fs.existsSync(dir)) return result
@@ -86,7 +86,7 @@ export default class PluginManager {
       return
     }
 
-    // scan rekursif — dapat absolute path per file
+    // scan rekursif  dapat absolute path per file
     const files = scanPlugins(this.pluginsDir)
     for (const filePath of files) await this._loadSinglePlugin(filePath)
 

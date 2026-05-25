@@ -89,7 +89,7 @@ export default {
     // expiry tmpfiles = 24 jam
     const expTs = Date.now() + 24 * 60 * 60 * 1000
 
-    // rows untuk sheet — hanya yang berhasil
+    // rows untuk sheet  hanya yang berhasil
     const rows = [
       urlTmp    && { title: 'tmpfiles', description: 'expired 24 jam · ' + urlTmp,    id: urlTmp    },
       urlUguu   && { title: 'uguu',     description: 'expired 3 hari · ' + urlUguu,   id: urlUguu   },

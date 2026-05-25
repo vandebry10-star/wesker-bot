@@ -21,7 +21,7 @@ export default {
   command: ['s'],
   category: ['owner'],
   hidden: false,
-  description: 's <cmd> — jalankan perintah shell',
+  description: 's <cmd>  jalankan perintah shell',
 
   async run({ feb, m, args }) {
     if (!args.length) return m.reply('usage: s <command>')

@@ -134,7 +134,7 @@ export async function handleMessageUpsert(feb, messages) {
 
         if (isDebug()) console.log('[REACTION]', emoji, 'from', sender, 'targetId', targetKey.id)
 
-        // ❌ = delete bot message — accept semua role, role null tetap dieksekusi
+        // ❌ = delete bot message  accept semua role, role null tetap dieksekusi
         if (emoji === '❌') {
           const targetDoc    = messageStore.get(targetKey.id)
           const isBotMessage =
@@ -151,7 +151,7 @@ export async function handleMessageUpsert(feb, messages) {
           continue
         }
 
-        // rcmd — reaction command
+        // rcmd  reaction command
         const role = getRole(sender, feb.user?.id)
         if (role !== 'owner') {
           if (isDebug()) console.log('[RCMD] bukan owner, skip')
@@ -248,7 +248,7 @@ export async function handleMessageUpsert(feb, messages) {
       const prefixes = feb.prefixManager.getAll()
       let extracted  = extractCommand(safeText, prefixes)
 
-      // fallback no-prefix — hanya aktif kalau prefixes kosong (prefix off)
+      // fallback no-prefix  hanya aktif kalau prefixes kosong (prefix off)
       if (!extracted && prefixes.length === 0) {
         const text = typeof safeText === 'string' ? safeText.trim() : ''
         if (!text) continue

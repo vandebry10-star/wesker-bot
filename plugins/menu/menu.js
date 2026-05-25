@@ -148,7 +148,7 @@ export default {
             i === last ? '└─' : '├─'
 
           return desc
-            ? `${tree} ${cmd}  —  ${desc}`
+            ? `${tree} ${cmd}    ${desc}`
             : `${tree} ${cmd}`
         }).join('\n') +
         `\n\n> ketik *menu all* untuk melihat semua menu`
