@@ -1,8 +1,8 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { quoteContext } from '../../system/helper/util.js'
-import { sendNativeFlow } from '../../system/helper/nativeflow.js'
+import { quoteContext } from '../../system/util/util.js'
+import { sendNativeFlow } from '../../system/messaging/nativeflow.js'
 
 export default {
   name: 'get lid',

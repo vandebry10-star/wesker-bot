@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const CACHE_DIR = path.join(__dirname, 'cache')
+const CACHE_DIR = path.join(__dirname, '../cache')
 const DEBUG_FILE = path.join(CACHE_DIR, 'debug.json')
 
 function ensure() {

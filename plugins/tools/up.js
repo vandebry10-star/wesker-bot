@@ -1,9 +1,9 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { downloadMedia } from '../../system/helper/download-media.js'
-import { quoteContext }  from '../../system/helper/util.js'
-import { sendNativeFlow } from '../../system/helper/nativeflow.js'
+import { downloadMedia } from '../../system/media/download-media.js'
+import { quoteContext }  from '../../system/util/util.js'
+import { sendNativeFlow } from '../../system/messaging/nativeflow.js'
 
 /* ─ uploaders ─ */
 async function uguu(buffer, filename) {

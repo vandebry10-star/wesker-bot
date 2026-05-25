@@ -3,7 +3,7 @@
 // WARNING: fakeq bikin quoted dari akun fake "WA verified". jangan dipakai
 // untuk impersonate brand/lembaga resmi. lihat README section disclaimer.
 
-import { isFakeQEnabled, setFakeQ } from '../../system/helper/fakeq.js'
+import { isFakeQEnabled, setFakeQ } from '../../system/runtime/fakeq.js'
 
 export default {
   name    : 'fakeq',

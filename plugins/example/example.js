@@ -8,13 +8,13 @@
 // kalau plugin kamu tidak butuh button, tidak
 // perlu import ini.
 //
-import { sendNativeFlow } from '../../system/helper/nativeflow.js'
+import { sendNativeFlow } from '../../system/messaging/nativeflow.js'
 
 // febCtx dipakai untuk bikin contextInfo
 // supaya interactiveMessage punya quoted ctx
 // yang valid. biasanya dipakai bareng sendNativeFlow.
 //
-import { febCtx } from '../../system/helper/custom-ctx.js'
+import { febCtx } from '../../system/messaging/custom-ctx.js'
 
 
 export default {

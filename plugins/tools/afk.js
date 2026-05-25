@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { setAFK, isAFK } from '../../system/helper/afk-store.js'
+import { setAFK, isAFK } from '../../system/runtime/afk-store.js'
 
 export default {
   name: 'afk',

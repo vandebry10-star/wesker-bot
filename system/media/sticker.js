@@ -63,20 +63,30 @@ export async function videoToSticker(buffer, ext = 'mp4', crop = false) {
 
   try {
 
-    await execFileAsync('ffmpeg', [
-      '-y',
-      '-t', String(MAX_VIDEO_SEC),
-      '-i', input,
-      '-vf', vf.join(','),
-      '-c:v', 'libwebp',
-      '-lossless', '0',
-      '-quality', '80',
-      '-loop', '0',
-      '-preset', 'default',
-      '-an',
-      '-vsync', '0',
-      output
-    ])
+    try {
+      await execFileAsync('ffmpeg', [
+        '-y',
+        '-t', String(MAX_VIDEO_SEC),
+        '-i', input,
+        '-vf', vf.join(','),
+        '-c:v', 'libwebp',
+        '-lossless', '0',
+        '-quality', '80',
+        '-loop', '0',
+        '-preset', 'default',
+        '-an',
+        '-vsync', '0',
+        output
+      ])
+    } catch (e) {
+      if (e?.code === 'ENOENT') {
+        const err = new Error('ffmpeg tidak ditemukan di PATH')
+        err.code = 'MISSING_BINARY'
+        err.binary = 'ffmpeg'
+        throw err
+      }
+      throw e
+    }
 
     return await readFile(output)
 

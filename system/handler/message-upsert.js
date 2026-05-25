@@ -1,16 +1,16 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import serialize              from '../serialize.js'
+import serialize              from '../core/serialize.js'
 import { messageStore }       from '../store/message-store.js'
-import { extractCommand }     from '../helper/util.js'
+import { extractCommand }     from '../util/util.js'
 import { jidNormalizedUser }  from 'baileys'
-import { getRole }            from '../helper/access.js'
-import { isLocked }           from '../helper/lock.js'
-import { isDebug }            from '../helper/debug.js'
-import { patchFeb }           from '../helper/feb-patch.js'
-import { getReactionCmdDB }   from '../helper/reaction-cmd.js'
-import { isFakeQEnabled }     from '../helper/fakeq.js'
+import { getRole }            from '../runtime/access.js'
+import { isLocked }           from '../runtime/lock.js'
+import { isDebug }            from '../runtime/debug.js'
+import { patchFeb }           from '../core/feb-patch.js'
+import { getReactionCmdDB }   from '../runtime/reaction-cmd.js'
+import { isFakeQEnabled }     from '../runtime/fakeq.js'
 
 export async function handleMessageUpsert(feb, messages) {
   for (const msg of messages) {

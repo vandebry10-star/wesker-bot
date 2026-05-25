@@ -49,7 +49,7 @@ Artinya: **siapapun yang punya role `owner` di `access.json` punya RCE ke VPS-mu
 2. Kalau pengen kasih akses ke teman, kasih role `user` (tidak akses kategori `owner`).
 3. Audit `access.json` rutin.
 
-Kalau kamu mau publish bot ke umum, **disable shell/eval/plugin manager** dengan menghapus file `plugins/owner/shell.js`, `plugins/owner/eval.js`, `plugins/owner/eval-anysnc.js`, `plugins/owner/plugin.js`.
+Kalau kamu mau publish bot ke umum, **disable shell/eval/plugin manager** dengan menghapus file `plugins/owner/shell.js`, `plugins/owner/eval.js`, `plugins/owner/eval-async.js`, `plugins/owner/plugin.js`.
 
 ### Fake Quoted (fakeq)  disclaimer
 
@@ -78,7 +78,7 @@ wesker-bot/
 │   ├── owner/
 │   │   ├── debug.js                 toggle debug log
 │   │   ├── eval.js                  eval javascript (cmd: e)
-│   │   ├── eval-anysnc.js           eval dengan output verbose (cmd: ev)
+│   │   ├── eval-async.js            eval dengan output verbose (cmd: ev)
 │   │   ├── inspect-message.js       inspect raw message object (cmd: im)
 │   │   ├── plugin.js                plugin manager (install, reload, check, dll)
 │   │   ├── reload.js                reload semua plugin + diff snapshot
@@ -114,49 +114,50 @@ wesker-bot/
 │       ├── sticker.js               convert gambar/video ke sticker
 │       └── up.js                    upload media ke tmpfiles/uguu/catbox
 └── system/
+    ├── core/
+    │   ├── serialize.js                serializer pesan masuk jadi object m
+    │   ├── feb-patch.js                patch socket untuk inject fake quoted contextInfo
+    │   └── patch-message-before-send.js
     ├── handler/
-    │   ├── message-upsert.js        inti handler semua pesan masuk
-    │   └── presence-update.js       handler presence event
-    ├── helper/
-    │   ├── access.js                role-based access control berbasis JSON
-    │   ├── afk-store.js             in-memory store untuk status AFK
-    │   ├── cache/
-    │   │   └── debug.json
-    │   ├── config-cache.js          persistent config cache berbasis JSON
-    │   ├── custom-ctx.js            builder context info untuk interactive message
-    │   ├── debug.js                 debug logger toggle
-    │   ├── download-media.js        download media dari message Baileys
-    │   ├── fakeq.js                 state manager untuk fitur fakeq
-    │   ├── feb-patch.js             patch socket untuk inject fake quoted contextInfo
-    │   ├── index.js                 BOT_INFO, sleep, formatTime, formatSeconds
-    │   ├── lock.js                  state manager global lock
-    │   ├── nativeflow.js            helper kirim interactiveMessage / nativeFlowMessage
-    │   ├── quoted-text.js           kirim dan edit pesan dengan custom quoted context
-    │   ├── reaction-cmd.js          mapping emoji ke command (rcmd)
-    │   ├── send.js                  shorthand semua tipe pengiriman pesan
-    │   ├── sticker.js               convert image/video ke webp sticker
-    │   ├── util.js                  utility umum
-    │   ├── wesker-album.js          kirim albumMessage dengan delay antar gambar
-    │   └── wesker-message.js        universal sender (text, image, document, dll)
+    │   ├── message-upsert.js           inti handler semua pesan masuk
+    │   └── presence-update.js          handler presence event
     ├── listener/
-    │   ├── core-listener.js         kelola semua event Baileys dan teruskan ke classifier
-    │   ├── event-classifier.js      kategorisasi tipe event sebelum diproses handler
-    │   └── event-logger.js          logger event in-RAM (ring buffer max 1000/category)
+    │   ├── core-listener.js            kelola semua event Baileys dan teruskan ke classifier
+    │   ├── event-classifier.js         kategorisasi tipe event sebelum diproses handler
+    │   └── event-logger.js             logger event in-RAM (ring buffer max 1000/category)
     ├── manager/
-    │   ├── index.js                 export semua manager
-    │   ├── plugin.js                plugin manager dengan hot-reload
-    │   ├── prefix.js                manage prefix command runtime
-    │   ├── reaction.js              command yang ditrigger dari reaction emoji
-    │   └── user.js                  user state manager
+    │   ├── index.js                    export semua manager
+    │   ├── plugin.js                   plugin manager dengan hot-reload
+    │   └── prefix.js                   manage prefix command runtime
+    ├── runtime/                        state / toggle persistent (file-backed)
+    │   ├── access.js                   role-based access control berbasis JSON
+    │   ├── afk-store.js                in-memory store untuk status AFK
+    │   ├── config-cache.js             persistent config cache berbasis JSON
+    │   ├── debug.js                    debug logger toggle
+    │   ├── fakeq.js                    state manager untuk fitur fakeq
+    │   ├── lock.js                     state manager global lock
+    │   └── reaction-cmd.js             mapping emoji ke command (rcmd)
+    ├── messaging/                      builder & sender pesan
+    │   ├── send.js                     shorthand semua tipe pengiriman pesan
+    │   ├── nativeflow.js               kirim interactiveMessage / nativeFlowMessage
+    │   ├── quoted-text.js              kirim & edit pesan dengan custom quoted context
+    │   ├── wesker-message.js           universal sender (text, image, document, dll)
+    │   ├── wesker-album.js             kirim albumMessage dengan delay antar gambar
+    │   └── custom-ctx.js               builder context info untuk interactive message
+    ├── media/
+    │   ├── download-media.js           download media dari message Baileys
+    │   └── sticker.js                  convert image/video ke webp sticker
     ├── store/
-    │   └── message-store.js         in-memory message store berdasarkan ID
-    ├── cache/
-    │   ├── access.json              daftar role user (gitignored)
-    │   ├── fakeq.json               state fakeq (gitignored)
-    │   ├── lock.json                state global lock (gitignored)
-    │   └── reaction-cmd.json        mapping rcmd (gitignored)
-    ├── patch-message-before-send.js
-    └── serialize.js                 serializer pesan masuk
+    │   └── message-store.js            in-memory message store berdasarkan ID
+    ├── util/
+    │   ├── index.js                    BOT_INFO, sleep, formatTime, formatSeconds
+    │   └── util.js                     utility umum (extractCommand, quoteContext)
+    └── cache/                          JSON state runtime (sebagian gitignored)
+        ├── access.json                 daftar role user (gitignored)
+        ├── debug.json                  state debug toggle
+        ├── fakeq.json                  state fakeq (gitignored)
+        ├── lock.json                   state global lock (gitignored)
+        └── reaction-cmd.json           mapping rcmd (gitignored)
 ```
 
 ---
@@ -188,21 +189,32 @@ $ cat system/cache/access.json
 
 ---
 
+### system/core
+
+Inti runtime bot. `serialize.js` mengubah raw Baileys message jadi object `m` yang dipakai semua plugin. `feb-patch.js` membungkus socket untuk inject fake quoted contextInfo saat `fakeq on`. `patch-message-before-send.js` di-pasang pada hook Baileys sebelum pesan dikirim.
+
 ### system/handler
 
 Isi `message-upsert.js` adalah inti dari seluruh bot. Semua pesan yang masuk diproses di sini, dari quick reply, native flow response, reaction, sampai command biasa. Sudah handle semua edge case termasuk `@lid` format dan `viewOnceMessage` wrapper.
 
-### system/helper
+### system/runtime
 
-Kumpulan utility yang dipakai oleh handler dan plugin. Yang paling sering dipakai:
+State / toggle persistent berbasis file JSON di `system/cache/`. Berisi `access.js` (role), `lock.js` (lock global), `fakeq.js`, `debug.js`, `reaction-cmd.js`, plus `afk-store.js` (in-memory) dan `config-cache.js` (helper persistent storage).
+
+### system/messaging
+
+Builder & sender pesan. Yang paling sering dipakai:
 
 - `send.js` shorthand semua tipe pesan, sudah di-inject ke `m` jadi bisa langsung `m.sendText()`, `m.sendSticker()`, dll
-- `sticker.js` convert buffer gambar ke webp via sharp, dan video ke webp animated via ffmpeg
 - `nativeflow.js` untuk bikin interactive message (button, sheet, copy link, dll)
 - `quoted-text.js` untuk kirim dan edit pesan dengan custom quoted context
 - `wesker-album.js` untuk kirim albumMessage, ada delay saat mengirim gambar mencegah spam
 - `wesker-message.js` sebagai universal sender yang bisa handle text, image, document, dan lainnya dalam satu fungsi
-- `access.js` untuk role-based access control berbasis JSON
+- `custom-ctx.js` builder contextInfo untuk interactive message
+
+### system/media
+
+`sticker.js` convert buffer gambar ke webp via sharp dan video ke webp animated via ffmpeg. `download-media.js` untuk download media dari pesan Baileys.
 
 ### system/listener
 
@@ -212,11 +224,14 @@ Kumpulan utility yang dipakai oleh handler dan plugin. Yang paling sering dipaka
 
 - `plugin.js` adalah plugin manager dengan hot-reload. Taruh file `.js` baru di `plugins/` dan bot langsung load tanpa restart.
 - `prefix.js` untuk manage prefix command yang bisa diganti runtime.
-- `reaction.js` untuk command yang ditrigger dari reaction emoji.
 
 ### system/store
 
 In-memory message store yang menyimpan pesan berdasarkan ID. Dibutuhkan untuk fitur seperti quick reply, reaction command, dan akses ke pesan lama dari dalam plugin.
+
+### system/util
+
+`index.js` menyimpan `BOT_INFO`, `sleep`, `formatTime`, `formatSeconds`. `util.js` berisi utility umum seperti `extractCommand` dan `quoteContext`.
 
 ---
 
@@ -287,7 +302,7 @@ m.sendSticker(buffer, { crop: true })      // crop tengah jadi square
 Helper `nativeflow.js` mempermudah pembuatan interactive message WhatsApp tanpa harus nulis boilerplate `additionalNodes` setiap saat.
 
 ```js
-import { sendNativeFlow } from '../../system/helper/nativeflow.js'
+import { sendNativeFlow } from '../../system/messaging/nativeflow.js'
 
 await sendNativeFlow(feb, chat, {
   viewOnceMessage: {
@@ -347,7 +362,7 @@ rcmd del 🍬          hapus
 rcmd clear           hapus semua
 ```
 
-Ditenagai oleh `system/helper/reaction-cmd.js` dengan persistent storage via `ConfigCache`. Mapping tersimpan di `system/cache/reaction-cmd.json` dan tetap ada setelah restart.
+Ditenagai oleh `system/runtime/reaction-cmd.js` dengan persistent storage via `ConfigCache`. Mapping tersimpan di `system/cache/reaction-cmd.json` dan tetap ada setelah restart.
 
 ```js
 // di dalam handler, bot cek reaction masuk

@@ -1,8 +1,8 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { normalizeMentions, buildContextInfo } from '../../system/helper/wesker-message.js'
-import { sendNativeFlow } from '../../system/helper/nativeflow.js'
+import { normalizeMentions, buildContextInfo } from '../../system/messaging/wesker-message.js'
+import { sendNativeFlow } from '../../system/messaging/nativeflow.js'
 
 export default {
   name: 'get group jid',

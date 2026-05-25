@@ -2,7 +2,7 @@
 
 
 import { jidNormalizedUser } from 'baileys'
-import { injectSendHelpers } from './helper/send.js'
+import { injectSendHelpers } from '../messaging/send.js'
 
 export default async function serialize(feb, msg, store) {
   if (!msg || !msg.message) return null

@@ -1,6 +1,6 @@
 import { prepareWAMessageMedia } from 'baileys'
-import { sendNativeFlow } from '../../system/helper/nativeflow.js'
-import { febCtx } from '../../system/helper/custom-ctx.js'
+import { sendNativeFlow } from '../../system/messaging/nativeflow.js'
+import { febCtx } from '../../system/messaging/custom-ctx.js'
 
 export default {
 name: 'esce',

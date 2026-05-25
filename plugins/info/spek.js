@@ -51,8 +51,18 @@ export default {
         .map(d => d.name)
     } catch {}
 
-    const helperDir   = path.resolve(process.cwd(), 'system/helper')
-    const helperFiles = fs.existsSync(helperDir) ? fs.readdirSync(helperDir).length : 0
+    const systemDir = path.resolve(process.cwd(), 'system')
+    function countJs(dir) {
+      if (!fs.existsSync(dir)) return 0
+      let total = 0
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name)
+        if (entry.isDirectory()) total += countJs(full)
+        else if (entry.name.endsWith('.js')) total += 1
+      }
+      return total
+    }
+    const systemFiles = countJs(systemDir)
 
     const ramUsedPct = (usedRam / totalRam) * 100
     const ramFreePct = (freeRam / totalRam) * 100
@@ -101,7 +111,7 @@ export default {
       `*runtime:*\n${runtime}\n\n` +
       `*project:*\n${pkg.name || '-'} @ ${pkg.version || '-'}\n\n` +
       `*dependencies:*\n${depCount} deps / ${devDepCount} owner\n\n` +
-      `*files:*\n${rootFiles.length} root files\n${helperFiles} helper modules`
+      `*files:*\n${rootFiles.length} root files\n${systemFiles} system modules`
 
     if (chartBuffer) {
       await feb.sendMessage(chat, {

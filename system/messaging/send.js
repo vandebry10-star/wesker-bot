@@ -3,7 +3,7 @@
 import {
   imageToSticker,
   videoToSticker
-} from './sticker.js'
+} from '../media/sticker.js'
 
 // ── internal: normalize quoted ────────────────
 

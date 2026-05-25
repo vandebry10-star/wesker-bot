@@ -6,7 +6,7 @@ import {
   addReactionCmd,
   removeReactionCmd,
   setReactionCmdDB
-} from '../../system/helper/reaction-cmd.js'
+} from '../../system/runtime/reaction-cmd.js'
 
 export default {
   name: 'rcmd',

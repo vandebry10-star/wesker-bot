@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { isDebug } from '../helper/debug.js'
+import { isDebug } from '../runtime/debug.js'
 
 const MAX_LOG_SIZE = 1000
 const buffers = new Map()

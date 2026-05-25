@@ -6,7 +6,7 @@ export default {
   hidden: false,
   command: ['ev'],
   category: ['owner'],
-  description: 'eval anysnc ',
+  description: 'eval async',
 
   async run({ feb, m }) {
     const code = m.text.replace(/^ev\s+/i, '')

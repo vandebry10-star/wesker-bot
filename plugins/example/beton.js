@@ -1,8 +1,8 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import {sendNativeFlow } from '../../system/helper/nativeflow.js'
-import { febCtx } from '../../system/helper/custom-ctx.js'
+import {sendNativeFlow } from '../../system/messaging/nativeflow.js'
+import { febCtx } from '../../system/messaging/custom-ctx.js'
 
 export default {
   name: 'beton',

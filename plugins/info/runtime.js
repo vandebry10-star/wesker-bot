@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { formatSeconds } from '../../system/helper/index.js'
+import { formatSeconds } from '../../system/util/index.js'
 
 export default {
   name: 'runtime',

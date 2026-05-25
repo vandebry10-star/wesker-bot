@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { isFakeQEnabled } from './fakeq.js'
+import { isFakeQEnabled } from '../runtime/fakeq.js'
 
 const WA_PARTICIPANT = '0@s.whatsapp.net'
 

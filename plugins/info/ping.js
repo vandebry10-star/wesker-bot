@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { sendQuotedText, editQuotedText } from '../../system/helper/quoted-text.js'
+import { sendQuotedText, editQuotedText } from '../../system/messaging/quoted-text.js'
 
 const stat = ms =>
   ms < 200 ? 'excellent' :

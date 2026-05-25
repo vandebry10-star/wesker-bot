@@ -4,7 +4,7 @@
 import fs   from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { getRole }       from '../helper/access.js'
+import { getRole }       from '../runtime/access.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 

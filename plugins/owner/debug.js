@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { isDebug, setDebug } from '../../system/helper/debug.js'
+import { isDebug, setDebug } from '../../system/runtime/debug.js'
 
 export default {
   name: 'debug',

@@ -1,7 +1,7 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import { downloadMedia } from '../../system/helper/download-media.js'
+import { downloadMedia } from '../../system/media/download-media.js'
 
 async function resolveSource(m){
 
@@ -100,6 +100,19 @@ export default {
       console.log(e)
 
       await react('❌')
+
+      if(e?.code === 'MISSING_BINARY' && e?.binary === 'ffmpeg'){
+        return m.reply(
+          '⚠️ *ffmpeg belum terinstall di VPS*\n\n' +
+          'Fitur sticker video butuh `ffmpeg`. Install dulu:\n\n' +
+          '• Debian / Ubuntu:\n  `sudo apt update && sudo apt install -y ffmpeg`\n' +
+          '• Alpine:\n  `apk add ffmpeg`\n' +
+          '• Arch:\n  `sudo pacman -S ffmpeg`\n' +
+          '• macOS (brew):\n  `brew install ffmpeg`\n\n' +
+          'Cek: `ffmpeg -version`'
+        )
+      }
+
       return m.reply('gagal convert / kirim sticker')
 
     }

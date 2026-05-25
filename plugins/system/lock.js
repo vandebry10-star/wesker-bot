@@ -1,5 +1,5 @@
 import { jidNormalizedUser } from 'baileys'
-import { isLocked, lockBot, unlockBot } from '../../system/helper/lock.js'
+import { isLocked, lockBot, unlockBot } from '../../system/runtime/lock.js'
 
 export default {
   name: 'lock',

@@ -6,7 +6,7 @@ import {
   addUser,
   removeUser,
   listAccess
-} from '../../system/helper/access.js'
+} from '../../system/runtime/access.js'
 
 import { jidNormalizedUser } from 'baileys'
 
