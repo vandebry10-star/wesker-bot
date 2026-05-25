@@ -1,14 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : plugins/dev/debug.js
- * desc    : plugins › debug
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import { isDebug, setDebug } from '../../system/helper/debug.js'
 

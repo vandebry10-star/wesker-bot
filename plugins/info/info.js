@@ -1,7 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * file    : plugins/info/info.js
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import os from 'node:os'
 

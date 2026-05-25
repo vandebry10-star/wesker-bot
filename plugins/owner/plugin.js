@@ -1,9 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * file    : plugins/dev/plugin.js
- * desc    : plugins › plugin manager
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import fs from 'node:fs'
 import path from 'node:path'

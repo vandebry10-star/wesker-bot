@@ -1,18 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : system/helper/download-media.js
- * desc    : system › helper › download-media
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import { downloadContentFromMessage } from 'baileys'
 

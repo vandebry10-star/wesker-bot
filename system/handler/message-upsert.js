@@ -1,18 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : system/handler/message-upsert.js
- * desc    : system › handler › message-upsert
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import serialize              from '../serialize.js'
 import { messageStore }       from '../store/message-store.js'
@@ -147,7 +134,7 @@ export async function handleMessageUpsert(feb, messages) {
 
         if (isDebug()) console.log('[REACTION]', emoji, 'from', sender, 'targetId', targetKey.id)
 
-        // ❌ = delete bot message
+        // ❌ = delete bot message — accept semua role, role null tetap dieksekusi
         if (emoji === '❌') {
           const targetDoc    = messageStore.get(targetKey.id)
           const isBotMessage =
@@ -158,8 +145,10 @@ export async function handleMessageUpsert(feb, messages) {
           if (isBotMessage) {
             await feb.sendMessage(chat, { delete: targetKey })
             if (isDebug()) console.log('[REACT-DELETE] deleted:', targetKey.id)
-            continue
+          } else if (isDebug()) {
+            console.log('[REACT-DELETE] skip, bukan pesan bot:', targetKey.id)
           }
+          continue
         }
 
         // rcmd — reaction command

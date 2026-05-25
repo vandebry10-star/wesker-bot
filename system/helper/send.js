@@ -1,31 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : system/helper/send.js
- * desc    : helper › send — shorthand semua tipe pesan
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- *
- * Semua function di sini bisa dipakai langsung
- * dari ctx plugin tanpa perlu import manual:
- *
- *   m.sendText('halo!')
- *   m.sendImage(buffer, 'caption')
- *   m.sendVideo(buffer, 'caption')
- *   m.sendAudio(buffer)
- *   m.sendSticker(buffer)
- *   m.sendDocument(buffer, 'file.pdf')
- *   m.sendLocation(lat, lng, 'nama')
- *   m.sendContact('628xxx', 'Nama')
- *   m.sendButtons('judul', 'isi', [...buttons])
- *   m.react('✅')
- *   m.reply('teks')
- *
- * Atau import manual kalau perlu lebih kontrol:
- *   import { sendText, sendImage, ... } from '../system/helper/send.js'
- *   sendText(feb, m, 'halo!')
- *
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 import {
   imageToSticker,
   videoToSticker

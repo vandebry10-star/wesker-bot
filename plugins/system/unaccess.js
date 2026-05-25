@@ -1,9 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * file    : plugins/system/unaccess.js
- * desc    : plugins › unaccess
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import { getRole, removeUser } from '../../system/helper/access.js'
 

@@ -1,6 +1,5 @@
-/* ════════════════════════════════════════════
- * wesker-md  ╌  febry wesker
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import {sendNativeFlow } from '../../system/helper/nativeflow.js'
 import { febCtx } from '../../system/helper/custom-ctx.js'

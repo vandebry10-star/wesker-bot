@@ -1,9 +1,7 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * file    : plugins/system/fakeq.js
- * desc    : plugins › fakeq
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
+// WARNING: fakeq bikin quoted dari akun fake "WA verified". jangan dipakai
+// untuk impersonate brand/lembaga resmi. lihat README section disclaimer.
 
 import { isFakeQEnabled, setFakeQ } from '../../system/helper/fakeq.js'
 

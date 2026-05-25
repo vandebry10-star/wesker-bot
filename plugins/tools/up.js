@@ -1,21 +1,6 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : plugins/tools/up.js
- * desc    : plugins › up
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
-import fetch    from 'node-fetch'
-import FormData from 'form-data'
+
 import { downloadMedia } from '../../system/helper/download-media.js'
 import { quoteContext }  from '../../system/helper/util.js'
 import { sendNativeFlow } from '../../system/helper/nativeflow.js'
@@ -23,7 +8,7 @@ import { sendNativeFlow } from '../../system/helper/nativeflow.js'
 /* ─ uploaders ─ */
 async function uguu(buffer, filename) {
   const form = new FormData()
-  form.append('files[]', buffer, filename)
+  form.append('files[]', new Blob([buffer]), filename)
   const res  = await fetch('https://uguu.se/upload.php', { method: 'POST', body: form })
   const json = await res.json()
   return json?.files?.[0]?.url || null
@@ -31,7 +16,7 @@ async function uguu(buffer, filename) {
 
 async function tmpfiles(buffer, filename) {
   const form = new FormData()
-  form.append('file', buffer, filename)
+  form.append('file', new Blob([buffer]), filename)
   const res  = await fetch('https://tmpfiles.org/api/v1/upload', { method: 'POST', body: form })
   const json = await res.json()
   return json?.data?.url?.replace('tmpfiles.org/', 'tmpfiles.org/dl/') || null
@@ -40,7 +25,7 @@ async function tmpfiles(buffer, filename) {
 async function catbox(buffer, filename) {
   const form = new FormData()
   form.append('reqtype', 'fileupload')
-  form.append('fileToUpload', buffer, filename)
+  form.append('fileToUpload', new Blob([buffer]), filename)
   const res  = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: form })
   const text = await res.text()
   return text.startsWith('http') ? text.trim() : null

@@ -1,10 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : plugins/system/prefix.js
- * desc    : plugins › prefix manager
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 // backup prefix saat dimatikan
 let _backup = []

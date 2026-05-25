@@ -27,9 +27,43 @@ npm install
 node launcher.js / npm start
 ```
 
-Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR), lalu setelah terkoneksi bot otomatis minta kamu input JID/LID sebagai owner pertama. Jika skip maka akses hanya untuk sender atau nomor bot.
+Saat pertama jalan, kamu akan diminta pilih metode auth (pairing code atau QR). Setelah konek, nomor bot otomatis di-register sebagai owner **hanya kalau `access.json` masih kosong** (first run). Kalau sudah ada owner lain, auto-register dilewati supaya tidak overwrite. Saat sesi `loggedOut`, entry owner-bot dihapus otomatis bareng folder `auth/`.
 
 Bot ini default private, hanya bisa diakses oleh nomor yang mendapatkan role. Gunakan `access` untuk memberikan role.
+
+---
+
+## Risiko & yang wajib kamu ubah sebelum production
+
+Base ini dirancang untuk dev pribadi & belajar `interactiveMessage`. Kalau kamu publish bot ini untuk dipakai orang lain, **wajib** baca section ini.
+
+### Owner punya akses shell + eval di VPS-mu
+
+- `s <cmd>` (alias `shell`) jalankan perintah shell apapun di host bot — termasuk `rm`, akses file sistem, network call, dll.
+- `e <code>` dan `ev <code>` jalankan JavaScript apapun pakai `AsyncFunction` — bisa load module Node, baca env, modifikasi state bot live.
+- Plugin `plugin` bisa install / reload plugin dari URL atau file.
+
+Artinya: **siapapun yang punya role `owner` di `access.json` punya RCE ke VPS-mu.** Pastikan:
+
+1. Tidak ada nomor asing yang masuk `access.json` sebagai `owner`.
+2. Kalau pengen kasih akses ke teman, kasih role `user` (tidak akses kategori `owner`).
+3. Audit `access.json` rutin.
+
+Kalau kamu mau publish bot ke umum, **disable shell/eval/plugin manager** dengan menghapus file `plugins/owner/shell.js`, `plugins/owner/eval.js`, `plugins/owner/eval-anysnc.js`, `plugins/owner/plugin.js`.
+
+### Fake Quoted (fakeq) — disclaimer
+
+Fitur `fakeq` bikin pesan bot terlihat seperti dikutip dari akun WhatsApp resmi (centang biru / WA Business verified). Ini efek visual aja, **tapi gampang disalahgunakan** untuk impersonate brand / lembaga / bank dalam scam dan phishing.
+
+Pemakaian fitur ini sepenuhnya tanggung jawab user. Penulis tidak bertanggung jawab atas penyalahgunaan. Defaultnya `on` untuk demo — kalau ragu, `fakeq off`.
+
+### Dev workflow — restart kalau habis edit banyak plugin
+
+Hot-reload pakai `import('?update=' + Date.now())` — Node ESM tidak punya cara unload modul, jadi tiap reload menambah modul baru di memori. Untuk sesi dev panjang yang banyak edit plugin, restart bot via `reload` atau pm2 restart sesekali biar RAM nggak menumpuk.
+
+### File sensitif di `system/cache/`
+
+`access.json` punya JID owner kamu — **jangan commit ke repo public**. Sudah ada di `.gitignore`, tapi pastikan tidak ke-track dari sejarah lama (`git log -- system/cache/access.json`).
 
 ---
 
@@ -41,14 +75,14 @@ wesker-bot/
 ├── launcher.js                      process wrapper dengan auto-restart
 ├── package.json
 ├── plugins/
-│   ├── dev/
+│   ├── owner/
 │   │   ├── debug.js                 toggle debug log
-│   │   ├── e.js                     eval javascript
-│   │   ├── ev.js                    eval dengan output verbose
-│   │   ├── im.js                    inspect raw message object
+│   │   ├── eval.js                  eval javascript (cmd: e)
+│   │   ├── eval-anysnc.js           eval dengan output verbose (cmd: ev)
+│   │   ├── inspect-message.js       inspect raw message object (cmd: im)
 │   │   ├── plugin.js                plugin manager (install, reload, check, dll)
 │   │   ├── reload.js                reload semua plugin + diff snapshot
-│   │   └── shell.js                 jalankan shell command
+│   │   └── shell.js                 jalankan shell command (cmd: s)
 │   ├── example/
 │   │   ├── beton.js                 contoh penggunaan nativeflow button
 │   │   ├── esce.js                  contoh interactive message dengan header image
@@ -107,7 +141,7 @@ wesker-bot/
     ├── listener/
     │   ├── core-listener.js         kelola semua event Baileys dan teruskan ke classifier
     │   ├── event-classifier.js      kategorisasi tipe event sebelum diproses handler
-    │   └── event-logger.js          logger untuk event masuk
+    │   └── event-logger.js          logger event in-RAM (ring buffer max 1000/category)
     ├── manager/
     │   ├── index.js                 export semua manager
     │   ├── plugin.js                plugin manager dengan hot-reload
@@ -117,14 +151,10 @@ wesker-bot/
     ├── store/
     │   └── message-store.js         in-memory message store berdasarkan ID
     ├── cache/
-    │   ├── access.json              daftar role user
-    │   ├── fakeq.json               state fakeq
-    │   ├── lock.json                state global lock
-    │   ├── reaction-cmd.json        mapping rcmd
-    │   └── listener-logs/
-    │       ├── groups.json
-    │       ├── messages.json
-    │       └── reactions.json
+    │   ├── access.json              daftar role user (gitignored)
+    │   ├── fakeq.json               state fakeq (gitignored)
+    │   ├── lock.json                state global lock (gitignored)
+    │   └── reaction-cmd.json        mapping rcmd (gitignored)
     ├── patch-message-before-send.js
     └── serialize.js                 serializer pesan masuk
 ```
@@ -144,7 +174,7 @@ access user (reply)        add role user
 unaccess me                lepas akses diri sendiri (user)
 ```
 
-## Saat pertama konek, bot otomatis mendaftarkan nomor bot sebagai owner pertama.
+## Saat pertama konek, bot otomatis mendaftarkan nomor bot sebagai owner — hanya kalau `access.json` masih kosong.
 
 Contoh isi `access.json` yang benar
 ```json
@@ -395,4 +425,4 @@ built by **febry wesker** on github
 
 https://chat.whatsapp.com/Ed43CaXjSb3KzD6EkZyH1q
 
-© 2026 all rights reserved. do not resell or redistribute without permission.
+Released under the MIT License — see `LICENSE` file. Bebas pakai, modifikasi, redistribute.

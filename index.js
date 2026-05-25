@@ -1,14 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : index.js
- * desc    : entry point
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import {
   makeWASocket,
@@ -39,7 +30,7 @@ import { handleMessageUpsert }   from './system/handler/message-upsert.js'
 import { createPresenceHandler } from './system/handler/presence-update.js'
 import { CoreListener }          from './system/listener/core-listener.js'
 import { BOT_INFO }              from './system/helper/index.js'
-import { addUser }               from './system/helper/access.js'
+import { addUser, removeUser, listAccess } from './system/helper/access.js'
 
 setDebug(process.env.DEBUG === '1')
 
@@ -233,10 +224,10 @@ async function startWesker() {
     if (connection === 'open') {
       const botJid = feb.user?.id
 
-if (botJid) {
-  addUser(botJid, 'owner')
-  console.log('✓ bot auto registered as owner:', botJid)
-}
+      if (botJid && Object.keys(listAccess()).length === 0) {
+        addUser(botJid, 'owner')
+        console.log('✓ bot auto registered as owner (first run):', botJid)
+      }
       const debugOn  = process.env.DEBUG === '1'
       const now      = new Date().toLocaleString('id-ID', {
         timeZone    : 'Asia/Jakarta',
@@ -283,9 +274,10 @@ nl()
         : null
 
       if (status === DisconnectReason.loggedOut) {
+        if (feb.user?.id) removeUser(feb.user.id)
         fs.rmSync('./auth', { recursive: true, force: true })
         nl()
-        row('auth', 'sesi berakhir · file auth dihapus · restart untuk login ulang', c.red)
+        row('auth', 'sesi berakhir · file auth & owner entry dihapus · restart untuk login ulang', c.red)
         nl()
         process.exit(0)
       }

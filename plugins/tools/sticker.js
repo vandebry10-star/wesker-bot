@@ -1,10 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : plugins/tools/sticker.js
- * desc    : plugins › sticker
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import { downloadMedia } from '../../system/helper/download-media.js'
 

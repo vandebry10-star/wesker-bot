@@ -1,53 +1,30 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : system/listener/event-logger.js
- * desc    : system › listener › event-logger
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- * © 2026 febry wesker. all rights reserved.
- * do not resell, redistribute, or claim as
- * your own work without explicit permission.
- * ────────────────────────────────────────────
- * © 2026 febry wesker. semua hak dilindungi.
- * dilarang menjual, menyebarkan, atau mengaku
- * sebagai karya sendiri tanpa izin tertulis.
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
-import fs from 'fs'
-import path from 'path'
+
 import { isDebug } from '../helper/debug.js'
 
-const LOG_DIR = path.resolve('./system/cache/listener-logs')
 const MAX_LOG_SIZE = 1000
-
-if (!fs.existsSync(LOG_DIR)) {
-  fs.mkdirSync(LOG_DIR, { recursive: true })
-}
+const buffers = new Map()
 
 export function logEvent(category, data) {
-  try {
-    const logFile = path.join(LOG_DIR, `${category}.json`)
-
-    let logs = []
-    if (fs.existsSync(logFile)) {
-      const content = fs.readFileSync(logFile, 'utf-8')
-      logs = JSON.parse(content)
-    }
-
-    logs.push({
-      timestamp: new Date().toISOString(),
-      ...data
-    })
-
-    if (logs.length > MAX_LOG_SIZE) {
-      logs = logs.slice(-MAX_LOG_SIZE)
-    }
-
-    fs.writeFileSync(logFile, JSON.stringify(logs, null, 2))
-  } catch (err) {
-    console.error('[LOG ERROR]', category, err.message)
+  let arr = buffers.get(category)
+  if (!arr) {
+    arr = []
+    buffers.set(category, arr)
   }
+
+  arr.push({ timestamp: new Date().toISOString(), ...data })
+
+  if (arr.length > MAX_LOG_SIZE) arr.splice(0, arr.length - MAX_LOG_SIZE)
+}
+
+export function getLogs(category) {
+  return buffers.get(category)?.slice() ?? []
+}
+
+export function clearLogs(category) {
+  if (category) buffers.delete(category)
+  else buffers.clear()
 }
 
 function formatInline(data) {

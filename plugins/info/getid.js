@@ -1,7 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * file    : plugins/info/getid.js
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 import { normalizeMentions, buildContextInfo } from '../../system/helper/wesker-message.js'
 import { sendNativeFlow } from '../../system/helper/nativeflow.js'

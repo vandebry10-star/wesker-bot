@@ -1,19 +1,5 @@
-/* ════════════════════════════════════════════
- * Wesker-MD  ╌  febry wesker
- * ════════════════════════════════════════════
- * file    : plugins/example/master.js
- * desc    : plugin master example, full komen
- * author  : febry  ⪩  2026
- * ════════════════════════════════════════════
- *
- * ini file contoh plugin paling lengkap.
- * semua context, helper, dan cara kirim pesan
- * ada di sini dengan penjelasan tiap baris.
- *
- * setelah paham, hapus yang tidak dipakai
- * dan sesuaikan dengan kebutuhan plugin kamu.
- *
- * ════════════════════════════════════════════ */
+// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
+
 
 // ── import helper ────────────────────────────
 //
