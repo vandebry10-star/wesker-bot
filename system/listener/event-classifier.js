@@ -169,7 +169,7 @@ export function classifyMessage(msg) {
     if (!classification.primary) classification.primary = 'live_location'
   }
 
-  if (message.callLogMesssage || message.call) {
+  if (message.callLogMessage || message.call) {
     classification.types.push('call')
     if (!classification.primary) classification.primary = 'call'
   }

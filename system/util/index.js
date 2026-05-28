@@ -5,7 +5,7 @@ export const BOT_INFO = {
   name: 'Wesker MD',
   owner: 'Febry Wesker',
   version: '1.0.0',
-  prefix: ['/', '.', '#', '!', '.'],
+  prefix: ['.', '!', '#'],
   description: 'Professional WhatsApp Bot Base - Clean, Modular, Scalable'
 };
 

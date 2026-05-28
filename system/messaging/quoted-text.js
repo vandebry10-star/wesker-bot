@@ -1,8 +1,6 @@
 // wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
 
 
-import crypto from 'node:crypto'
-
 function stripContextInfo(message) {
   if (!message) return { conversation: '' }
 

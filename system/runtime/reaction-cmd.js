@@ -10,6 +10,8 @@ const RCMD_FILE = path.join(__dirname, '../cache/reaction-cmd.json')
 
 const cache = new ConfigCache(RCMD_FILE, {})
 
+const stripPrefix = s => String(s).trim().replace(/^[.\/!#$%^&*?,;:~`+=-]+/, '')
+
 export function getReactionCmdDB() {
   return cache.get()
 }
@@ -17,7 +19,7 @@ export function getReactionCmdDB() {
 export function addReactionCmd(emoji, cmd) {
   if (!emoji || !cmd) return
   const db = cache.get()
-  db[emoji] = cmd
+  db[emoji] = stripPrefix(cmd)
   cache.set(db)
 }
 

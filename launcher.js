@@ -22,8 +22,17 @@ const gap  = () => process.stdout.write('\n')
 let pkg = { name: 'wesker-md', version: '1.4.8', author: 'febry wesker', description: '' }
 try { pkg = JSON.parse(readFileSync('./package.json', 'utf8')) } catch {}
 
+function countPlugins(dir) {
+  let n = 0
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) n += countPlugins(`${dir}/${entry.name}`)
+    else if (entry.name.endsWith('.js') && !entry.name.startsWith('_')) n++
+  }
+  return n
+}
+
 let plugins = 0
-try { plugins = readdirSync('./plugins').filter(f => f.endsWith('.js')).length } catch {}
+try { plugins = countPlugins('./plugins') } catch {}
 
 let commit = ''
 try { commit = execSync('git rev-parse --short HEAD 2>/dev/null').toString().trim() } catch {}

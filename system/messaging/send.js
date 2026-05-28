@@ -72,6 +72,24 @@ export async function sendSticker(feb, m, sticker, opts = {}) {
   )
 }
 
+export function sendAudio(feb, m, audio, opts = {}) {
+  const { quoted, mimetype = 'audio/mp4', ptt = false, seconds } = opts
+  const src = typeof audio === 'string' ? { url: audio } : audio
+  return feb.sendMessage(
+    m.chat,
+    { audio: src, mimetype, ptt, ...(seconds ? { seconds } : {}) },
+    { quoted: normalizeQuoted(quoted) || m.raw }
+  )
+}
+
+export function sendVoice(feb, m, audio, opts = {}) {
+  return sendAudio(feb, m, audio, {
+    ...opts,
+    mimetype: opts.mimetype || 'audio/ogg; codecs=opus',
+    ptt: true
+  })
+}
+
 export function sendDocument(feb, m, document, fileName = 'file.bin', opts = {}) {
   const { quoted, mimetype = 'application/octet-stream', caption } = opts
   const src = typeof document === 'string' ? { url: document } : document
@@ -143,7 +161,6 @@ export function sendButtons(feb, m, body, footer = '', buttons = [], opts = {}) 
 }
 
 export function forwardMessage(feb, m, rawMsg) {
-  const content = rawMsg?.message || rawMsg
   return feb.sendMessage(m.chat, { forward: rawMsg })
 }
 

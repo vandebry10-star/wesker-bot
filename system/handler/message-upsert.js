@@ -10,7 +10,6 @@ import { isLocked }           from '../runtime/lock.js'
 import { isDebug }            from '../runtime/debug.js'
 import { patchFeb }           from '../core/feb-patch.js'
 import { getReactionCmdDB }   from '../runtime/reaction-cmd.js'
-import { isFakeQEnabled }     from '../runtime/fakeq.js'
 
 export async function handleMessageUpsert(feb, messages) {
   for (const msg of messages) {
@@ -159,11 +158,12 @@ export async function handleMessageUpsert(feb, messages) {
         }
 
         const db      = getReactionCmdDB()
-        const cmdText = db[emoji]
-        if (!cmdText) {
+        const rawCmd  = db[emoji]
+        if (!rawCmd) {
           if (isDebug()) console.log('[RCMD] emoji tidak terdaftar:', emoji)
           continue
         }
+        const cmdText = String(rawCmd).trim().replace(/^[.\/!#$%^&*?,;:~`+=-]+/, '')
 
         const targetStored = messageStore.get(targetKey.id)
         if (!targetStored?.serialized) {
@@ -226,24 +226,6 @@ export async function handleMessageUpsert(feb, messages) {
         continue
       }
 
-      /* ─ lock ─ */
-      if (isLocked()) {
-        const botJid    = jidNormalizedUser(feb.user?.id)
-        const botLid    = jidNormalizedUser(feb.user?.lid || '')
-        const botNumber = botJid.split('@')[0].split(':')[0]
-        const mentions  = m.mentions || []
-        const textMentions = [...(safeText.matchAll(/@(\d+)/g))].map(r => r[1])
-
-        const isMentioned =
-          mentions.some(j => jidNormalizedUser(j) === botJid || jidNormalizedUser(j) === botLid) ||
-          textMentions.includes(botNumber)
-
-        const t = safeText.trim().toLowerCase()
-        const isLockCmd = (t.startsWith('lock') || t.startsWith('unlock')) && isMentioned
-
-        if (!isLockCmd) continue
-      }
-
       /* ─ command dispatch ─ */
       const prefixes = feb.prefixManager.getAll()
       let extracted  = extractCommand(safeText, prefixes)
@@ -261,6 +243,25 @@ export async function handleMessageUpsert(feb, messages) {
       }
 
       if (!extracted) continue
+
+      /* ─ lock ─ */
+      if (isLocked()) {
+        const botJid    = jidNormalizedUser(feb.user?.id)
+        const botLid    = jidNormalizedUser(feb.user?.lid || '')
+        const botNumber = botJid.split('@')[0].split(':')[0]
+        const mentions  = m.mentions || []
+        const textMentions = [...(safeText.matchAll(/@(\d+)/g))].map(r => r[1])
+
+        const isMentioned =
+          mentions.some(j => jidNormalizedUser(j) === botJid || jidNormalizedUser(j) === botLid) ||
+          textMentions.includes(botNumber)
+
+        const cmd = extracted.command.toLowerCase()
+        const isLockCmd = (cmd === 'lock' || cmd === 'unlock') && isMentioned
+
+        if (!isLockCmd) continue
+      }
+
       if (feb.pluginManager.isDisabled(extracted.command)) continue
 
       const plugin = feb.pluginManager.getPlugin(extracted.command)

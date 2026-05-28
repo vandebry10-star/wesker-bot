@@ -27,7 +27,6 @@ import { setDebug }              from './system/runtime/debug.js'
 import PluginManager             from './system/manager/plugin.js'
 import PrefixManager             from './system/manager/prefix.js'
 import { handleMessageUpsert }   from './system/handler/message-upsert.js'
-import { createPresenceHandler } from './system/handler/presence-update.js'
 import { CoreListener }          from './system/listener/core-listener.js'
 import { BOT_INFO }              from './system/util/index.js'
 import { addUser, removeUser, listAccess } from './system/runtime/access.js'
@@ -294,8 +293,6 @@ nl()
     if (type !== 'notify') return
     await handleMessageUpsert(feb, messages)
   })
-
-  feb.ev.on('presence.update', createPresenceHandler(feb))
 }
 
 ;(async () => {
