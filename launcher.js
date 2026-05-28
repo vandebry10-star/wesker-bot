@@ -8,11 +8,11 @@ import os                             from 'os'
 
 const c = {
   reset : '\x1b[0m',
-  dim   : '\x1b[90m',
+  dim   : '\x1b[37m',
   white : '\x1b[97m',
   bold  : '\x1b[1m',
-  green : '\x1b[32m',
-  cyan  : '\x1b[36m',
+  green : '\x1b[92m',
+  cyan  : '\x1b[96m',
 }
 
 const sep  = () => process.stdout.write(`${c.dim}┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄${c.reset}\n`)

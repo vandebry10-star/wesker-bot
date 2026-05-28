@@ -133,7 +133,14 @@ export async function handleMessageUpsert(feb, messages) {
 
         if (isDebug()) console.log('[REACTION]', emoji, 'from', sender, 'targetId', targetKey.id)
 
-        // ❌ = delete bot message  accept semua role, role null tetap dieksekusi
+        // semua reaksi (delete & rcmd) wajib role terdaftar (owner/user), tolak anonim
+        const role = getRole(sender, feb.user?.id)
+        if (!role) {
+          if (isDebug()) console.log('[REACTION] role null, skip:', sender)
+          continue
+        }
+
+        // ❌ = delete bot message
         if (emoji === '❌') {
           const targetDoc    = messageStore.get(targetKey.id)
           const isBotMessage =
@@ -147,13 +154,6 @@ export async function handleMessageUpsert(feb, messages) {
           } else if (isDebug()) {
             console.log('[REACT-DELETE] skip, bukan pesan bot:', targetKey.id)
           }
-          continue
-        }
-
-        // rcmd  reaction command
-        const role = getRole(sender, feb.user?.id)
-        if (role !== 'owner') {
-          if (isDebug()) console.log('[RCMD] bukan owner, skip')
           continue
         }
 
@@ -257,7 +257,8 @@ export async function handleMessageUpsert(feb, messages) {
           textMentions.includes(botNumber)
 
         const cmd = extracted.command.toLowerCase()
-        const isLockCmd = (cmd === 'lock' || cmd === 'unlock') && isMentioned
+        const isSelfCmd = extracted.args?.[0]?.toLowerCase() === 'me' && msg.key.fromMe === true
+        const isLockCmd = (cmd === 'lock' || cmd === 'unlock') && (isMentioned || isSelfCmd)
 
         if (!isLockCmd) continue
       }

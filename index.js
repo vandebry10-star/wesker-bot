@@ -44,14 +44,14 @@ const PAIRING_CODE = 'WESKERMD'
 // ── colors ────────────────────────────────────
 const c = {
   reset : '\x1b[0m',
-  dim   : '\x1b[90m',
+  dim   : '\x1b[37m',
   white : '\x1b[97m',
   bold  : '\x1b[1m',
-  green : '\x1b[32m',
-  cyan  : '\x1b[36m',
-  yellow: '\x1b[33m',
-  red   : '\x1b[31m',
-  blue  : '\x1b[34m',
+  green : '\x1b[92m',
+  cyan  : '\x1b[96m',
+  yellow: '\x1b[93m',
+  red   : '\x1b[91m',
+  blue  : '\x1b[94m',
 }
 
 const W = (...args) => process.stdout.write(args.join(''))
