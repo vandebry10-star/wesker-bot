@@ -1,7 +1,4 @@
-// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
-
-
-import { sendQuotedText, editQuotedText } from '../../system/messaging/quoted-text.js'
+import { sendQuotedText, editQuotedText } from '../../system/helper/quoted-text.js'
 
 const stat = ms =>
   ms < 200 ? 'excellent' :
@@ -11,6 +8,7 @@ export default {
   name: 'ping',
   command: ['ping', 'p', 'p2'],
   category: ['info'],
+  thumbnail: 'https://i.pinimg.com/originals/62/71/7c/62717c54144b77ea416d17825d8ee8ec.jpg', //example custom thumbnail di help
   description:
     'latency diagnostics\n' +
     '-n = network\n' +
