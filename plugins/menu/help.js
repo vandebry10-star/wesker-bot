@@ -1,7 +1,5 @@
-// wesker-bot · febry.is-a.dev · github.com/vandebry10-star/wesker-bot
-
-
 import crypto from 'node:crypto'
+import fetch from 'node-fetch'
 
 const DEFAULT_THUMB =
   'https://api.azbry.com/api/wesker.jpg'
@@ -20,6 +18,7 @@ export default {
   name: 'help',
   command: ['help'],
   category: ['main'],
+  thumbnail: 'https://i.pinimg.com/736x/1e/1e/49/1e1e4996b0f17197b81e578450462c14.jpg',
   description: 'tampilkan daftar command + detail',
 
   async run({ feb, m, raw, args, wesker, other }) {
