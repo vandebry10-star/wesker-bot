@@ -1,6 +1,3 @@
-import crypto from 'node:crypto'
-import fetch from 'node-fetch'
-
 const DEFAULT_THUMB =
   'https://api.azbry.com/api/wesker.jpg'
 
