@@ -18,11 +18,13 @@ export default {
 
     if (sub === 'on') {
       setDebug(true)
+      console.log('debug diaktifkan')
       return m.sendText('debug on')
     }
 
     if (sub === 'off') {
       setDebug(false)
+      console.loh('debug dimatikan')
       return m.sendText('debug off')
     }
 
