@@ -1,4 +1,4 @@
-import { sendQuotedText, editQuotedText } from '../../system/helper/quoted-text.js'
+import { sendQuotedText, editQuotedText } from '../../system/messaging/quoted-text.js'
 
 const stat = ms =>
   ms < 200 ? 'excellent' :
